@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler'
 begin
-  Bundler.setup(:default, :development)
+  Bundler.setup(:default, :development, :test)
 rescue Bundler::BundlerError => e
   $stderr.puts e.message
   $stderr.puts "Run `bundle install` to install missing gems"
@@ -12,13 +12,14 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "mv-sqlite"
-  gem.homepage = "http://github.com/vprokochuk256/mv-sqlite"
+  gem.name = "mv-postgresql"
+  gem.homepage = "http://github.com/vprokochuk256/mv-postgresql"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "Migration Validators project postgresql driver"
+  gem.description = "Migration Validators project postgresql driver"
   gem.email = "vprokopchuk@gmail.com"
   gem.authors = ["Valeriy Prokopchuk"]
+  gem.files = Dir.glob('lib/**/*.rb')
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
@@ -44,7 +45,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "mv-sqlite #{version}"
+  rdoc.title = "mv-postgresql #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
