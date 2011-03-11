@@ -1083,7 +1083,7 @@ describe MigrationValidators::Adapters::Postgresql, :type => :mv_test do
       end
 
       with_change :length => {:in => 4..9} do
-        with_change :exclusion => false do
+        with_change :length => false do
           it { should allow('123') }
         end
       end
@@ -1099,7 +1099,7 @@ describe MigrationValidators::Adapters::Postgresql, :type => :mv_test do
       end
 
       with_change :length => {:in => 4..9} do
-        with_change :exclusion => false do
+        with_change :length => false do
           it { should allow('123') }
         end
       end

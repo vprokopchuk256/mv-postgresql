@@ -24,8 +24,7 @@ module MigrationValidators
 
       define_base_containers
       container :insert_trigger do
-        operation :create do |stmt, group_name|
-          table_name, trigger_name = group_name
+        operation :create do |stmt, trigger_name, group_name|
           func_name = "#{trigger_name}_func"
 
           "CREATE OR REPLACE FUNCTION #{func_name}() RETURNS TRIGGER AS $#{func_name}$
@@ -36,13 +35,12 @@ module MigrationValidators
              END;
            $#{func_name}$ LANGUAGE plpgsql;
 
-           CREATE TRIGGER #{trigger_name} BEFORE INSERT ON #{table_name} 
+           CREATE TRIGGER #{trigger_name} BEFORE INSERT ON #{group_name.first} 
               FOR EACH ROW EXECUTE PROCEDURE #{func_name}();"
         end
 
-        operation :drop do |stmt, group_name|
-          table_name, trigger_name = group_name
-          "DROP TRIGGER IF EXISTS #{trigger_name} ON #{table_name};"
+        operation :drop do |stmt, trigger_name, group_name|
+          "DROP TRIGGER IF EXISTS #{trigger_name} ON #{group_name.first};"
         end
 
 
@@ -54,8 +52,7 @@ module MigrationValidators
       end
 
       container :update_trigger do
-        operation :create do |stmt, group_name|
-          table_name, trigger_name = group_name
+        operation :create do |stmt, trigger_name, group_name|
           func_name = "#{trigger_name}_func"
 
           "CREATE OR REPLACE FUNCTION #{func_name}() RETURNS TRIGGER AS $#{func_name}$
@@ -66,15 +63,14 @@ module MigrationValidators
              END;
            $#{func_name}$ LANGUAGE plpgsql;
 
-           CREATE TRIGGER #{trigger_name} BEFORE UPDATE ON #{table_name} 
+           CREATE TRIGGER #{trigger_name} BEFORE UPDATE ON #{group_name.first} 
               FOR EACH ROW EXECUTE PROCEDURE #{func_name}();"
         end
 
-        operation :drop do |stmt, group_name|
-          table_name, trigger_name = group_name
+        operation :drop do |stmt, trigger_name, group_name|
           func_name = "#{trigger_name}_func"
 
-          "DROP TRIGGER IF EXISTS #{trigger_name} ON #{table_name};
+          "DROP TRIGGER IF EXISTS #{trigger_name} ON #{group_name.first};
            DROP FUNCTION IF EXISTS #{func_name}();"
         end
 
@@ -86,9 +82,7 @@ module MigrationValidators
       end
 
       container :check do
-        operation :drop do |stmt, group_name|
-          table_name, check_name = group_name
-
+        operation :drop do |stmt, check_name, group_name|
           "CREATE OR REPLACE FUNCTION __temporary_constraint_drop_function__() RETURNS INTEGER AS $$
               DECLARE 
                 constraint_rec RECORD;
@@ -96,7 +90,7 @@ module MigrationValidators
                 SELECT INTO constraint_rec * FROM pg_constraint WHERE conname='#{check_name}' AND contype='c';
 
                 IF FOUND THEN
-                  ALTER TABLE #{table_name} DROP CONSTRAINT #{check_name};
+                  ALTER TABLE #{group_name.first} DROP CONSTRAINT #{check_name};
                 END IF;
 
                 RETURN 1;
