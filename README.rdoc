@@ -4,11 +4,11 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
 = Validators
 
-== uniqueness
-== length
-== inclusion
-== exclusion
-== presense
+* uniqueness
+* length
+* inclusion
+* exclusion
+* presense
 
 
 == Contributing to mv-postgresql
