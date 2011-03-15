@@ -6,11 +6,15 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
 === uniqueness
 
-  Examples:
+  Usage:
 
   validate_column :table_name, :column_name, :uniqueness => true
   validate_column :table_name, :column_name, :uniqueness => {:message => 'Error message', :as => :trigger}
   validate_column :table_name, :column_name, :uniqueness => {:as => :index}
+
+  create_table :table_name do |t|
+     t.string :column_name, :validates => {uniqueness => true}
+  end
 
 === length
 === inclusion
