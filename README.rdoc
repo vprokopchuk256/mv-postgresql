@@ -1,6 +1,15 @@
-= mv-sqlite
+= Introduction
 
-Description goes here.
+mv-sqlite is the SQLite driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
+
+= Validators
+
+==uniqueness
+==length
+==inclusion
+==exclusion
+==presense
+
 
 == Contributing to mv-postgresql
  
