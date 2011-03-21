@@ -16,6 +16,12 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
      t.string :column_name, :validates => {uniqueness => true}
   end
 
+  Options: 
+
+     <b>message:</b>   text of the error message that will be shown if constraint violated.  Ignored unless :as == :trigger
+     index_name:   name of the index that will be created for validator. Ignored unless :as == :index
+     on:   
+     as: defines the way how constraint will be implemented. Possible values: [:index, :trigger]
 === length
 === inclusion
 === exclusion
