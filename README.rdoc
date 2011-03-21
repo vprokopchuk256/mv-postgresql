@@ -18,10 +18,15 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   Options: 
 
-     *message*:  text of the error message that will be shown if constraint violated.  Ignored unless :as == :trigger
-     index_name:   name of the index that will be created for validator. Ignored unless :as == :index
-     on:   
-     as: defines the way how constraint will be implemented. Possible values: [:index, :trigger]
+  message:  text of the error message that will be shown if constraint violated.  Ignored unless :as == :trigger
+  index_name:   name of the index that will be created for validator. Ignored unless :as == :index
+  on:  validation event. Possible values [:save, :update, :create]. Ignored unless :as == :trigger. Default value :save
+  create_tigger_name: Name of the 'on update' trigger that will be created if :as == :trigger && :on in [:save, :create]
+  update_tigger_name: Name of the 'on update' trigger that will be created if :as == :trigger && :on in [:save, :update]
+  allow_nil: ignore validation for nil values. Ignored unless :as == :trigger
+  allow_blank: ignore validation for blank values. Ignored unless :as == :trigger
+  as: defines the way how constraint will be implemented. Possible values: [:index, :trigger]
+
 === length
 === inclusion
 === exclusion
