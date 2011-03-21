@@ -7,7 +7,7 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 === uniqueness
 
   Usage:
-
+  
   validate_column :table_name, :column_name, :uniqueness => true
   validate_column :table_name, :column_name, :uniqueness => {:message => 'Error message', :as => :trigger}
   validate_column :table_name, :column_name, :uniqueness => {:as => :index}
@@ -23,11 +23,33 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   on:  validation event. Possible values [:save, :update, :create]. Ignored unless :as == :trigger. Default value :save
   create_tigger_name: Name of the 'on update' trigger that will be created if :as == :trigger && :on in [:save, :create]
   update_tigger_name: Name of the 'on update' trigger that will be created if :as == :trigger && :on in [:save, :update]
-  allow_nil: ignore validation for nil values. Ignored unless :as == :trigger
-  allow_blank: ignore validation for blank values. Ignored unless :as == :trigger
-  as: defines the way how constraint will be implemented. Possible values: [:index, :trigger]
+  allow_nil: ignore validation for nil values. Ignored unless :as == :trigger. Default value: false
+  allow_blank: ignore validation for blank values. Ignored unless :as == :trigger. Default value: false
+  as: defines the way how constraint will be implemented. Possible values: [:index, :trigger]. Default value: :index
 
 === length
+
+  Usage: 
+
+  validate_column :table_name, :column_name, :length => {:in => 5..8, :message => "Wrong length message"}
+  validate_column :table_name, :column_name, :length => {:is => 3, :allow_nil => true}
+  validate_column :table_name, :column_name, :length => {:maximum => 3, :too_long => "Value is longer than 3 symbols"} 
+
+  Options:
+
+  in: range or array that length of the value should be contained in.
+  within: synonym of :in
+  is: exact length of the value
+  maximum:  maximum allowed length
+  minimum: minimum allowed length
+  message: message that should be shown if validation failed and specific message is not defined
+  too_long: message that will be shown if value longer than allowed. Ignored unless maximum value is defined
+  too_short: message that will be shown if value shorter than allowed. Ignored unless minimum value is defined
+  on:  validation event. Possible values [:save, :update, :create]. Ignored unless :as == :trigger. Default value :save
+  allow_nil: ignore validation for nil values. Default value: false
+  allow_blank: ignore validation for blank values. Default value: false
+  as: defines the way how constraint will be implemented. Possible values: [:index, :check] Default value: :check
+
 === inclusion
 === exclusion
 === presense
