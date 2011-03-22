@@ -1,6 +1,6 @@
 = Introduction
 
-mv-sqlite is the SQLite driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
+mv-postgresql is the PostgreSQL driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
 
 = Validators
 
@@ -54,7 +54,7 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   update_tigger_name: Name of the 'before update' trigger that will be created if :as == :trigger && :on in [:save, :update]
   allow_nil: ignore validation for nil values. Default value: false
   allow_blank: ignore validation for blank values. Default value: false
-  as: defines the way how constraint will be implemented. Possible values: [:index, :check] Default value: :check
+  as: defines the way how constraint will be implemented. Possible values: [:trigger, :check] Default value: :check
 
 === inclusion
 
@@ -76,7 +76,7 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   update_tigger_name: Name of the 'before update' trigger that will be created if :as == :trigger && :on in [:save, :update]
   allow_nil: ignore validation for nil values. Default value: false
   allow_blank: ignore validation for blank values. Default value: false
-  as: defines the way how constraint will be implemented. Possible values: [:index, :check] Default value: :check
+  as: defines the way how constraint will be implemented. Possible values: [:trigger, :check] Default value: :check
 
   
 === exclusion
@@ -99,7 +99,7 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   update_tigger_name: Name of the 'before update' trigger that will be created if :as == :trigger && :on in [:save, :update]
   allow_nil: ignore validation for nil values. Default value: false
   allow_blank: ignore validation for blank values. Default value: false
-  as: defines the way how constraint will be implemented. Possible values: [:index, :check] Default value: :check
+  as: defines the way how constraint will be implemented. Possible values: [:trigger, :check] Default value: :check
 
 === presense
 
@@ -121,7 +121,7 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   update_tigger_name: Name of the 'before update' trigger that will be created if :as == :trigger && :on in [:save, :update]
   allow_nil: ignore validation for nil values. Default value: false
   allow_blank: ignore validation for blank values. Default value: false
-  as: defines the way how constraint will be implemented. Possible values: [:index, :check] Default value: :check
+  as: defines the way how constraint will be implemented. Possible values: [:trigger, :check] Default value: :check
 
 === format
 
@@ -143,7 +143,7 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   update_tigger_name: Name of the 'before update' trigger that will be created if :as == :trigger && :on in [:save, :update]
   allow_nil: ignore validation for nil values. Default value: false
   allow_blank: ignore validation for blank values. Default value: false
-  as: defines the way how constraint will be implemented. Possible values: [:index, :check] Default value: :check
+  as: defines the way how constraint will be implemented. Possible values: [:trigger, :check] Default value: :check
 
 == Contributing to mv-postgresql
  
