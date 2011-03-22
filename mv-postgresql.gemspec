@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     "lib/migration_validators/adapters/postgresql.rb",
     "lib/mv-postgresql.rb"
   ]
-  s.homepage = %q{http://github.com/vprokochuk256/mv-postgresql}
+  s.homepage = %q{http://github.com/vprokopchuk256/mv-postgresql}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
