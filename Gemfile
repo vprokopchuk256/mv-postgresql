@@ -1,17 +1,15 @@
 source "http://rubygems.org"
 
 gem "pg"
-gem "mv-core"
+gem "mv-core", :git => "git@github.com:vprokopchuk256/mv-core.git"
 
 
 group :development do
-  gem "bundler", "~> 1.0.0"
-  gem "jeweler", "~> 1.5.2"
-  gem "rcov", ">= 0"
+  gem "jeweler"
 end
 
 group :test do
-  gem "rspec", "~> 2.3.0"
+  gem "rspec"
   gem 'factory_girl'
   gem 'shoulda'
   gem 'mv-test'
