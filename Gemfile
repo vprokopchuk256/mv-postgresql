@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem "pg"
-gem "mv-core", :git => "git@github.com:vprokopchuk256/mv-core.git"
+gem "mv-core", path: '../mv-core'
 
 
 group :development do
@@ -9,8 +9,8 @@ group :development do
 end
 
 group :test do
-  gem "rspec"
-  gem 'factory_girl'
+  gem "rspec", '>= 3.1.0'
   gem 'shoulda'
-  gem 'mv-test'
+  gem 'mv-test', path: '../mv-test'
+  gem 'pry-byebug'
 end

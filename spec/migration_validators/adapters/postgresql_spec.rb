@@ -6,9 +6,9 @@ describe MigrationValidators::Adapters::Postgresql, :type => :mv_test do
     use_db :adapter => "postgresql",  
            :port => 5432, 
            :host => "localhost",
-           :database => "root",
-           :username => "postgres",
-           :password => "postgres"
+           :database => "root" #,
+           # :username => "postgres",
+           # :password => "postgres"
 
     db.initialize_schema_migrations_table
     ::ActiveRecord::Migration.verbose = false

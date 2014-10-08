@@ -4,7 +4,6 @@ require 'rspec'
 require 'mv-test'
 require 'mv-postgresql'
 require 'shoulda'
-require 'factory_girl'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
