@@ -105,11 +105,11 @@ module MigrationValidators
       end
 
 
-      route :presense, :trigger do
+      route :presence, :trigger do
         to :insert_trigger, :if => {:on => [:save, :create, nil]}
         to :update_trigger, :if => {:on => [:save, :update, nil]}
       end
-      route :presense, :check, :to => :check, :default => true
+      route :presence, :check, :to => :check, :default => true
 
       route :inclusion, :trigger do
         to :insert_trigger, :if => {:on => [:save, :create, nil]}

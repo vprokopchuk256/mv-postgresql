@@ -390,7 +390,7 @@ describe MigrationValidators::Adapters::Postgresql, :type => :mv_test do
         end
       end
 
-      with_validator :presense do
+      with_validator :presence do
         with_option :as => :trigger do
           it { should allow('b') }
           it { should deny(nil).with_initial('b') }
