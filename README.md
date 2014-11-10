@@ -295,3 +295,7 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
 Copyright (c) 2011 Valeriy Prokopchuk. See LICENSE.txt for
 further details.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vprokopchuk256/mv-postgresql/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
