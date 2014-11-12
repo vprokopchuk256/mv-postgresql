@@ -2,7 +2,7 @@
 
 mv-postgresql is the PostgreSQL driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
 
-# Validators
+**WARNING:** `change` method is not supported in migrations yet. You should rather use `up` && `down` methods# Validators
 
 ### uniqueness
 
