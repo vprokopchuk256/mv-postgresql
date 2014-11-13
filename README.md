@@ -1,3 +1,8 @@
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vprokopchuk256/mv-postgresql/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Build Status](https://travis-ci.org/vprokopchuk256/mv-postgresql.svg?branch=master)](https://travis-ci.org/vprokopchuk256/mv-postgresql)
+[![Coverage Status](https://coveralls.io/repos/vprokopchuk256/mv-postgresql/badge.png?branch=master)](https://coveralls.io/r/vprokopchuk256/mv-postgresql?branch=master)
+[![Gem Version](https://badge.fury.io/rb/mv-postgresql.svg)](http://badge.fury.io/rb/mv-postgresql)
+
 # Introduction
 
 mv-postgresql is the PostgreSQL driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
@@ -294,8 +299,4 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
 
 Copyright (c) 2011 Valeriy Prokopchuk. See LICENSE.txt for
 further details.
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vprokopchuk256/mv-postgresql/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

@@ -13,4 +13,5 @@ group :test do
   gem 'shoulda'
   gem 'mv-test', '~> 1.0'
   gem 'pry-byebug'
+  gem 'coveralls', require: false
 end

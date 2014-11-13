@@ -4,13 +4,10 @@ describe MigrationValidators::Adapters::Postgresql, :type => :mv_test do
   before :all do
     Driver = Class.new(MigrationValidators::Adapters::Base)
     use_db :adapter => "postgresql",  
-           :port => 5432, 
-           :host => "localhost",
-           :database => "root" #,
-           # :username => "postgres",
-           # :password => "postgres"
+           :database => "validation_migration_test_db", 
+           :username => "postgres"
 
-    db.initialize_schema_migrations_table
+    db.initialize_migration_validators_table
     ::ActiveRecord::Migration.verbose = false
   end
 
