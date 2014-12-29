@@ -1,4 +1,8 @@
 require 'mv-core'
+require 'mv/postgresql/validation/base_decorator'
+require 'mv/postgresql/railtie'
 
-# require File.expand_path(File.dirname(__FILE__)) + '/migration_validators/adapters/postgresql'
+ActiveSupport.on_load(:mv_core) do
+  Mv::Core::Validation::Base.send(:prepend, Mv::Postgresql::Validation::BaseDecorator)
+end
 
