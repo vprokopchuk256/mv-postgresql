@@ -32,14 +32,8 @@ describe 'Update validation scenarios' do
       end.new('TestMigration', '20141118164617').migrate(:up)
     end
 
-    it "deletes trigger constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:delete).once
-      subject
-    end
-
-    it "creates index constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Index).to receive(:create).once
-      subject
+    it "does NOT change migration validators number" do
+      expect{ subject }.not_to change(Mv::Core::Db::MigrationValidator, :count)
     end
 
     it "updates migration validator" do
@@ -66,15 +60,9 @@ describe 'Update validation scenarios' do
         end
       end.new('TestMigration', '20141118164617').migrate(:up)
     end
-
-    it "deletes trigger constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:delete).once
-      subject
-    end
-
-    it "creates index constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Index).to receive(:create).once
-      subject
+    
+    it "does NOT change migration validators number" do
+      expect{ subject }.not_to change(Mv::Core::Db::MigrationValidator, :count)
     end
 
     it "updates migration validator" do

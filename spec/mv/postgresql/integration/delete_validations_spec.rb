@@ -36,11 +36,6 @@ describe 'Delete validation scenarios' do
       it "removes migration validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(-1)
       end
-
-      it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:delete).once
-        subject
-      end
     end
 
     describe "remove column" do
@@ -67,11 +62,6 @@ describe 'Delete validation scenarios' do
 
       it "removes migration validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(-1)
-      end
-
-      it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:delete).once
-        subject
       end
     end
   end
@@ -100,11 +90,6 @@ describe 'Delete validation scenarios' do
       it "removes migration validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(-1)
       end
-
-      it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:delete).once
-        subject
-      end
     end
 
     describe "update column" do
@@ -128,11 +113,6 @@ describe 'Delete validation scenarios' do
 
       it "removes migration validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(-1)
-      end
-
-      it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:delete).once
-        subject
       end
     end
   end
