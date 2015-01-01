@@ -34,6 +34,11 @@ describe 'Add validation scenarios' do
       it "adds new validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(1)
       end
+
+      it "creates new trigger constraint" do
+        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:create).once
+        subject
+      end
     end
 
     describe "update column" do
@@ -55,6 +60,11 @@ describe 'Add validation scenarios' do
 
       it "adds new validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(1)
+      end
+      
+      it "creates new trigger constraint" do
+        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:create).once
+        subject
       end
     end
   end
@@ -79,6 +89,11 @@ describe 'Add validation scenarios' do
       it "adds new validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(1)
       end
+      
+      it "creates new trigger constraint" do
+        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:create).once
+        subject
+      end
     end
 
     describe "update column" do
@@ -96,9 +111,13 @@ describe 'Add validation scenarios' do
         end.new('TestMigration', '20141118164617') 
       end
 
-
       it "adds new validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(1)
+      end
+      
+      it "creates new trigger constraint" do
+        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:create).once
+        subject
       end
     end
   end

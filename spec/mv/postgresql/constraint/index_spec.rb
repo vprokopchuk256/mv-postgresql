@@ -1,12 +1,11 @@
 require 'spec_helper'
 
-require 'mv/postgresql/constraint/index_decorator'
+require 'mv/postgresql/constraint/index'
 
-describe Mv::Postgresql::Constraint::IndexDecorator do
+describe Mv::Postgresql::Constraint::Index do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
     Mv::Core::Db::MigrationValidator.delete_all
-    Mv::Core::Constraint::Index.send(:prepend, described_class)
 
     if ActiveRecord::Base.connection.index_name_exists?(:table_name, :idx_mv_table_name, false)
       ActiveRecord::Base.connection.remove_index!(:table_name, :idx_mv_table_name)
@@ -23,7 +22,7 @@ describe Mv::Postgresql::Constraint::IndexDecorator do
   end
 
   let(:index_description) { Mv::Core::Constraint::Description.new(:idx_mv_table_name, :index) }
-  let(:index_constraint) { Mv::Core::Constraint::Index.new(index_description) }
+  let(:index_constraint) { described_class.new(index_description) }
 
   let(:uniqueness) { 
     Mv::Core::Validation::Uniqueness.new(:table_name, 

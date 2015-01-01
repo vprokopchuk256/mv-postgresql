@@ -1,7 +1,7 @@
 module Mv
   module Postgresql
     module Constraint
-      module IndexDecorator
+      class Index < Mv::Core::Constraint::Index
         def create
           validations.group_by(&:table_name).each do |table_name, validations|
             remove_index(table_name)
