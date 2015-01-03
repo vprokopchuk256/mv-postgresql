@@ -20,7 +20,7 @@ describe Mv::Core::Validation::Factory do
                                         :uniqueness, 
                                         { as: :check })}
 
-    it { is_expected.to be_kind_of(Mv::Core::Validation::Uniqueness) }
+    it { is_expected.to be_kind_of(Mv::Postgresql::Validation::Uniqueness) }
   end
 
   describe "format" do
@@ -47,7 +47,7 @@ describe Mv::Core::Validation::Factory do
                                         :length, 
                                         { as: :check })}
 
-    it { is_expected.to be_kind_of(Mv::Core::Validation::Length) }
+    it { is_expected.to be_kind_of(Mv::Postgresql::Validation::Length) }
   end
 
   describe "presence" do

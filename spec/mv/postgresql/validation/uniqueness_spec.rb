@@ -1,18 +1,15 @@
 require 'spec_helper'
 
-require 'mv/postgresql/validation/inclusion'
+require 'mv/postgresql/validation/uniqueness'
 
-describe Mv::Postgresql::Validation::Inclusion do
+describe Mv::Postgresql::Validation::Uniqueness do
   def instance opts = {}
-    described_class.new(:table_name, :column_name, { in: [1, 2] }.merge(opts))
+    described_class.new(:table_name, :column_name, opts)
   end
 
   subject { instance }
 
   describe "default values" do
-    its(:as) { is_expected.to eq(:check)}
-    its(:check_name) { is_expected.to eq("chk_mv_table_name_column_name") }
-    
     describe ":create_trigger_name" do
       describe "when :as == :check" do
         subject { instance(create_trigger_name: nil, as: :check) }
@@ -26,6 +23,20 @@ describe Mv::Postgresql::Validation::Inclusion do
         subject { instance(update_trigger_name: nil, as: :check) }
 
         its(:update_trigger_name) { is_expected.to be_nil }
+      end
+    end
+
+    describe ":check_name" do
+      describe "when :as == :trigger" do
+        subject { instance(update_trigger_name: nil, as: :trigger, check_name: nil) }
+
+        its(:check_name) { is_expected.to be_nil }
+      end
+
+      describe "when :as == :index" do
+        subject { instance(update_trigger_name: nil, as: :index, check_name: nil) }
+
+        its(:check_name) { is_expected.to be_nil }
       end
     end
   end
@@ -44,6 +55,16 @@ describe Mv::Postgresql::Validation::Inclusion do
                            create_trigger_name: nil, 
                            check_name: :check_name, 
                            as: :trigger) }
+        
+        it { is_expected.to be_invalid }
+      end
+
+      describe "when :as == :index" do
+        subject { instance(update_trigger_name: nil, 
+                           create_trigger_name: nil, 
+                           check_name: :check_name, 
+                           on: nil,
+                           as: :index) }
         
         it { is_expected.to be_invalid }
       end

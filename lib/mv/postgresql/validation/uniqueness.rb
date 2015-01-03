@@ -1,7 +1,7 @@
 module Mv
   module Postgresql
     module Validation
-      class Inclusion < Mv::Core::Validation::Inclusion
+      class Uniqueness < Mv::Core::Validation::Uniqueness
         attr_reader :check_name
 
         validates :check_name, absence: { message: 'allowed when :as == :trigger' }, unless: :check?
@@ -19,11 +19,7 @@ module Mv
         protected 
 
         def available_as
-          [:trigger, :check]
-        end
-        
-        def default_as
-          :check 
+          super + [:check]
         end
 
         protected
