@@ -3,7 +3,6 @@ require 'mv/postgresql/railtie'
 
 require 'mv/postgresql/route/check'
 
-require 'mv/postgresql/constraint/index'
 require 'mv/postgresql/constraint/check'
 
 require 'mv/postgresql/validation/exclusion'
@@ -18,7 +17,6 @@ ActiveSupport.on_load(:mv_core) do
   Mv::Core::Router.define_route(:check, Mv::Postgresql::Route::Check)
 
   #constraints
-  Mv::Core::Constraint::Factory.register_constraint(:index, Mv::Postgresql::Constraint::Index)
   Mv::Core::Constraint::Factory.register_constraint(:check, Mv::Postgresql::Constraint::Check)
 
   #validations

@@ -38,7 +38,7 @@ describe 'Update validation scenarios' do
     end
 
     it "creates index constraint" do
-      expect_any_instance_of(Mv::Postgresql::Constraint::Index).to receive(:create).once
+      expect_any_instance_of(Mv::Core::Constraint::Index).to receive(:create).once
       subject
     end
 
@@ -77,7 +77,7 @@ describe 'Update validation scenarios' do
     end
 
     it "creates index constraint" do
-      expect_any_instance_of(Mv::Postgresql::Constraint::Index).to receive(:create).once
+      expect_any_instance_of(Mv::Core::Constraint::Index).to receive(:create).once
       subject
     end
     

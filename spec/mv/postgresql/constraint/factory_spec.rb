@@ -14,7 +14,7 @@ describe Mv::Core::Constraint::Factory do
           Mv::Core::Constraint::Description.new(:index_name, :index) 
         }
 
-        it { is_expected.to be_instance_of(Mv::Postgresql::Constraint::Index) }
+        it { is_expected.to be_instance_of(Mv::Core::Constraint::Index) }
       end
 
       describe "check" do
