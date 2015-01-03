@@ -10,6 +10,8 @@ describe Mv::Postgresql::Validation::Uniqueness do
   subject { instance }
 
   describe "default values" do
+    its(:as) { is_expected.to eq(:index) }
+    
     describe ":create_trigger_name" do
       describe "when :as == :check" do
         subject { instance(create_trigger_name: nil, as: :check) }
