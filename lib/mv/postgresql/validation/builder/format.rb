@@ -1,0 +1,31 @@
+module Mv
+  module Postgresql
+    module Validation
+      module Builder
+        class Format < Mv::Core::Validation::Builder::Base
+          delegate :with, to: :validation
+
+          
+          def conditions
+            [{
+              statement: apply_allow_nil_and_blank(apply_with(column_reference)), 
+              message: message
+            }]
+          end
+
+          protected
+
+          def db_value value
+            return value if value.is_a?(Integer)
+            return "'#{value.source}'" if value.is_a?(Regexp)
+            "'#{value.to_s}'"
+          end
+
+          def apply_with stmt
+            "#{stmt} ~ #{db_value(with)}"
+          end
+        end
+      end
+    end
+  end
+end
