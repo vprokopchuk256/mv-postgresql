@@ -33,12 +33,12 @@ describe 'Update validation scenarios' do
     end
 
     it "deletes trigger constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:delete).once
+      expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:delete).once
       subject
     end
 
     it "creates index constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Index).to receive(:create).once
+      expect_any_instance_of(Mv::Core::Constraint::Builder::Index).to receive(:create).once
       subject
     end
 
@@ -72,12 +72,12 @@ describe 'Update validation scenarios' do
     end
 
     it "deletes trigger constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:delete).once
+      expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:delete).once
       subject
     end
 
     it "creates index constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Index).to receive(:create).once
+      expect_any_instance_of(Mv::Core::Constraint::Builder::Index).to receive(:create).once
       subject
     end
     

@@ -36,7 +36,7 @@ describe 'Add validation scenarios' do
       end
 
       it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:create).once
+        expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:create).once
         subject
       end
     end
@@ -63,7 +63,7 @@ describe 'Add validation scenarios' do
       end
       
       it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:create).once
+        expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:create).once
         subject
       end
     end
@@ -91,7 +91,7 @@ describe 'Add validation scenarios' do
       end
       
       it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:create).once
+        expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:create).once
         subject
       end
     end
@@ -116,7 +116,7 @@ describe 'Add validation scenarios' do
       end
       
       it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Trigger).to receive(:create).once
+        expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:create).once
         subject
       end
     end
