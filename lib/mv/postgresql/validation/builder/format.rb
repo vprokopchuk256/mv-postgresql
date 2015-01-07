@@ -21,7 +21,7 @@ module Mv
                                       column_name: column_name, 
                                       validation_type: :inclusion, 
                                       options: { in: value }, 
-                                      error: "#{value.class} is not supported as :in value")
+                                      error: "#{value.class} is not supported as :with value")
           end
 
           def apply_with stmt
