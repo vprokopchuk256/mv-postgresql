@@ -1,4 +1,5 @@
 require 'mv/postgresql/validation/builder/inclusion'
+require 'mv/postgresql/validation/builder/trigger/trigger_column'
 
 module Mv
   module Postgresql
@@ -6,11 +7,7 @@ module Mv
       module Builder
         module Trigger
           class Inclusion < Mv::Postgresql::Validation::Builder::Inclusion
-            protected 
-
-            def column_reference
-              "NEW.#{super}"
-            end 
+            include TriggerColumn
           end
         end
       end

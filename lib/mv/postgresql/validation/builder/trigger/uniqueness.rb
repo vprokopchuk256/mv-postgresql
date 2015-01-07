@@ -1,14 +1,12 @@
+require 'mv/postgresql/validation/builder/trigger/trigger_column'
+
 module Mv
   module Postgresql
     module Validation
       module Builder
         module Trigger
           class Uniqueness < Mv::Core::Validation::Builder::Uniqueness
-            protected 
-
-            def column_reference
-              "NEW.#{super}"
-            end 
+            include TriggerColumn
           end
         end
       end
