@@ -23,13 +23,30 @@ describe Mv::Postgresql::Validation::Builder::Format do
   describe "#conditions" do
     subject { described_class.new(format(opts)).conditions }
 
-    describe "when string passed" do
+    describe "when regex passed" do
       let(:opts) { { with: /exp/ } }
       
       it { is_expected.to eq([{
         statement: "column_name ~ 'exp'", 
         message: 'some error message'
       }]) }
+    end
+
+    describe "when string passed" do
+      let(:opts) { { with: 'exp' } }
+      
+      it { is_expected.to eq([{
+        statement: "column_name ~ 'exp'", 
+        message: 'some error message'
+      }]) }
+    end
+
+    describe "when not supported type passed" do
+      let(:opts) { { with: 1 } }
+
+      it 'raises an error' do
+        expect{ subject }.to raise_error(Mv::Core::Error)
+      end
     end
 
     describe "when nil is allowed" do

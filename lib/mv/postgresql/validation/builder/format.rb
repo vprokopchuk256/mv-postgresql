@@ -5,7 +5,6 @@ module Mv
         class Format < Mv::Core::Validation::Builder::Base
           delegate :with, to: :validation
 
-          
           def conditions
             [{
               statement: apply_allow_nil_and_blank(apply_with(column_reference)), 
@@ -16,9 +15,13 @@ module Mv
           protected
 
           def db_value value
-            return value if value.is_a?(Integer)
             return "'#{value.source}'" if value.is_a?(Regexp)
-            "'#{value.to_s}'"
+            return "'#{value.to_s}'" if value.is_a?(String)
+            raise Mv::Core::Error.new(table_name: table_name, 
+                                      column_name: column_name, 
+                                      validation_type: :inclusion, 
+                                      options: { in: value }, 
+                                      error: "#{value.class} is not supported as :in value")
           end
 
           def apply_with stmt
