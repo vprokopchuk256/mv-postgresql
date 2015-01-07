@@ -1,12 +1,13 @@
 require 'spec_helper'
 
+require 'mv/postgresql/validation/exclusion'
 require 'mv/postgresql/validation/builder/exclusion'
 
 describe Mv::Postgresql::Validation::Builder::Exclusion do
   def exclusion(opts = {})
-    Mv::Core::Validation::Exclusion.new(:table_name, 
-                                        :column_name,
-                                        { in: [1, 5], message: 'some error message' }.merge(opts)) 
+    Mv::Postgresql::Validation::Exclusion.new(:table_name, 
+                                              :column_name,
+                                              { in: [1, 5], message: 'some error message' }.merge(opts)) 
   end
 
   describe "#conditions" do

@@ -1,12 +1,13 @@
 require 'spec_helper'
 
+require 'mv/postgresql/validation/inclusion'
 require 'mv/postgresql/validation/builder/inclusion'
 
 describe Mv::Postgresql::Validation::Builder::Inclusion do
   def inclusion(opts = {})
-    Mv::Core::Validation::Inclusion.new(:table_name, 
-                                        :column_name,
-                                        { in: [1, 5], message: 'some error message' }.merge(opts)) 
+    Mv::Postgresql::Validation::Inclusion.new(:table_name, 
+                                              :column_name,
+                                              { in: [1, 5], message: 'some error message' }.merge(opts)) 
   end
 
   describe "#conditions" do
