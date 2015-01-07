@@ -5,6 +5,8 @@ require 'mv/postgresql/route/check'
 
 require 'mv/postgresql/constraint/check'
 
+require 'mv/postgresql/constraint/builder/trigger'
+
 require 'mv/postgresql/validation/exclusion'
 require 'mv/postgresql/validation/uniqueness'
 require 'mv/postgresql/validation/format'
@@ -18,6 +20,10 @@ ActiveSupport.on_load(:mv_core) do
 
   #constraints
   Mv::Core::Constraint::Factory.register_constraint(:check, Mv::Postgresql::Constraint::Check)
+
+  #constraint builders
+  Mv::Core::Constraint::Builder::Factory.register_builder(Mv::Core::Constraint::Trigger, 
+                                                          Mv::Postgresql::Constraint::Builder::Trigger)
 
   #validations
   Mv::Core::Validation::Factory.register_validation(:exclusion, Mv::Postgresql::Validation::Exclusion)

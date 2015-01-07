@@ -33,7 +33,7 @@ describe 'Update validation scenarios' do
     end
 
     it "deletes trigger constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:delete).once
+      expect_any_instance_of(Mv::Postgresql::Constraint::Builder::Trigger).to receive(:delete).once
       subject
     end
 
@@ -72,7 +72,7 @@ describe 'Update validation scenarios' do
     end
 
     it "deletes trigger constraint" do
-      expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:delete).once
+      expect_any_instance_of(Mv::Postgresql::Constraint::Builder::Trigger).to receive(:delete).once
       subject
     end
 
