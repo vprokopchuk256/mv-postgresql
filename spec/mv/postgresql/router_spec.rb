@@ -12,16 +12,16 @@ describe Mv::Core::Router do
   end
 
   describe "#route" do
-    let(:uniqueness) { 
-      Mv::Postgresql::Validation::Uniqueness.new(:table_name, :column_name, options) 
+    let(:presence) { 
+      Mv::Postgresql::Validation::Presence.new(:table_name, :column_name, options) 
     }
 
-    subject { described_class.route(uniqueness) }
+    subject { described_class.route(presence) }
 
     describe "when :as == :check" do
       let(:options) { { as: :check } }
 
-      it { is_expected.to eq([Description.new(uniqueness.check_name, :check)]) }
+      it { is_expected.to eq([Description.new(presence.check_name, :check)]) }
     end
   end
 end   

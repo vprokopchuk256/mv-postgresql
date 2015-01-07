@@ -8,7 +8,6 @@ require 'mv/postgresql/constraint/check'
 require 'mv/postgresql/constraint/builder/trigger'
 
 require 'mv/postgresql/validation/exclusion'
-require 'mv/postgresql/validation/uniqueness'
 require 'mv/postgresql/validation/format'
 require 'mv/postgresql/validation/inclusion'
 require 'mv/postgresql/validation/length'
@@ -27,7 +26,6 @@ ActiveSupport.on_load(:mv_core) do
 
   #validations
   Mv::Core::Validation::Factory.register_validation(:exclusion, Mv::Postgresql::Validation::Exclusion)
-  Mv::Core::Validation::Factory.register_validation(:uniqueness, Mv::Postgresql::Validation::Uniqueness)
   Mv::Core::Validation::Factory.register_validation(:format, Mv::Postgresql::Validation::Format)
   Mv::Core::Validation::Factory.register_validation(:inclusion, Mv::Postgresql::Validation::Inclusion)
   Mv::Core::Validation::Factory.register_validation(:length, Mv::Postgresql::Validation::Length)
