@@ -16,7 +16,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Format do
       let(:opts) { { with: /exp/ } }
       
       it { is_expected.to eq([{
-        statement: "NEW.column_name ~ 'exp'", 
+        statement: "NEW.column_name IS NOT NULL AND NEW.column_name ~ 'exp'", 
         message: 'some error message'
       }]) }
     end

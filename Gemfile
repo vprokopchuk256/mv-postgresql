@@ -9,7 +9,7 @@ group :development do
   gem "rspec", '~> 3.1'
   gem 'rspec-its'
   gem 'guard-rspec', require: false
-  gem 'mv-test', '~> 1.0'
+  gem 'shoulda'
 end
 
 group :test do

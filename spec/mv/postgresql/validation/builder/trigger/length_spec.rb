@@ -17,7 +17,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Length do
         let(:opts) { { in: [1, 3] } }
 
         it { is_expected.to eq([{
-          statement: 'LENGTH(NEW.column_name) IN (1, 3)', 
+          statement: 'NEW.column_name IS NOT NULL AND LENGTH(NEW.column_name) IN (1, 3)', 
           message: 'some error message'
         }]) }
       end

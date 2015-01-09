@@ -17,7 +17,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Uniqueness do
       let(:opts) { {} }
 
       it { is_expected.to eq([{
-        statement: "NOT EXISTS(SELECT column_name 
+        statement: "NEW.column_name IS NOT NULL AND NOT EXISTS(SELECT column_name 
                                  FROM table_name 
                                 WHERE NEW.column_name = column_name)".squish, 
         message: 'some error message'

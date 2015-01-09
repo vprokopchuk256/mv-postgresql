@@ -16,7 +16,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Exclusion do
       let(:opts) { { in: [Date.new(2001, 1, 1), Date.new(2002, 2, 2)] } }
 
       it { is_expected.to eq([{
-        statement: "NEW.column_name NOT IN ('2001-01-01', '2002-02-02')", 
+        statement: "NEW.column_name IS NOT NULL AND NEW.column_name NOT IN ('2001-01-01', '2002-02-02')", 
         message: 'some error message'
       }]) }
     end

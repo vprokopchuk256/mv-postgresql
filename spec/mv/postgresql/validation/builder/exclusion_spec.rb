@@ -17,7 +17,7 @@ describe Mv::Postgresql::Validation::Builder::Exclusion do
       let(:opts) { { in: [Date.new(2001, 1, 1), Date.new(2002, 2, 2)] } }
 
       it { is_expected.to eq([{
-        statement: "column_name NOT IN ('2001-01-01', '2002-02-02')", 
+        statement: "column_name IS NOT NULL AND column_name NOT IN ('2001-01-01', '2002-02-02')", 
         message: 'some error message'
       }]) }
     end
@@ -26,7 +26,7 @@ describe Mv::Postgresql::Validation::Builder::Exclusion do
       let(:opts) { { in: [DateTime.new(2001, 1, 1, 1, 1, 1), DateTime.new(2002, 2, 2, 2, 2, 2)] } }
 
       it { is_expected.to eq([{
-        statement: "column_name NOT IN ('2001-01-01 01:01:01', '2002-02-02 02:02:02')", 
+        statement: "column_name IS NOT NULL AND column_name NOT IN ('2001-01-01 01:01:01', '2002-02-02 02:02:02')", 
         message: 'some error message'
       }]) }
     end
@@ -35,7 +35,7 @@ describe Mv::Postgresql::Validation::Builder::Exclusion do
       let(:opts) { { in: [Time.new(2001, 1, 1, 1, 1, 1), Time.new(2002, 2, 2, 2, 2, 2)] } }
 
       it { is_expected.to eq([{
-        statement: "column_name NOT IN ('2001-01-01 01:01:01', '2002-02-02 02:02:02')", 
+        statement: "column_name IS NOT NULL AND column_name NOT IN ('2001-01-01 01:01:01', '2002-02-02 02:02:02')", 
         message: 'some error message'
       }]) }
     end

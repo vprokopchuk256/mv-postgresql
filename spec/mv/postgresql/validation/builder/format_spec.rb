@@ -27,7 +27,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
       let(:opts) { { with: /exp/ } }
       
       it { is_expected.to eq([{
-        statement: "column_name ~ 'exp'", 
+        statement: "column_name IS NOT NULL AND column_name ~ 'exp'", 
         message: 'some error message'
       }]) }
     end
@@ -36,7 +36,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
       let(:opts) { { with: 'exp' } }
       
       it { is_expected.to eq([{
-        statement: "column_name ~ 'exp'", 
+        statement: "column_name IS NOT NULL AND column_name ~ 'exp'", 
         message: 'some error message'
       }]) }
     end
