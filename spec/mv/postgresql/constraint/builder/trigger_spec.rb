@@ -178,6 +178,16 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
           expect { subject }.to change{ triggers('trg_mv_table_name_ins').length }.from(0).to(1)
         end
       end
+
+      describe "when several validations provided" do
+        before do
+          create_trigger.validations << validation
+        end
+
+        it "does not raise an error" do
+          expect{ subject }.not_to raise_error
+        end
+      end
     end
 
     describe "#update" do
