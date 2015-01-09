@@ -6,6 +6,7 @@ require 'mv/postgresql/route/check'
 require 'mv/postgresql/constraint/check'
 
 require 'mv/postgresql/constraint/builder/trigger'
+require 'mv/postgresql/constraint/builder/check'
 
 require 'mv/postgresql/validation/exclusion'
 require 'mv/postgresql/validation/format'
@@ -64,6 +65,27 @@ ActiveSupport.on_load(:mv_core) do
     Mv::Postgresql::Validation::Builder::Trigger::Uniqueness
   )
 
+  #validation builders in check
+  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
+    Mv::Postgresql::Validation::Exclusion, 
+    Mv::Postgresql::Validation::Builder::Exclusion
+  )
+  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
+    Mv::Postgresql::Validation::Inclusion, 
+    Mv::Postgresql::Validation::Builder::Inclusion
+  )
+  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
+    Mv::Postgresql::Validation::Length, 
+    Mv::Core::Validation::Builder::Length
+  )
+  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
+    Mv::Postgresql::Validation::Format, 
+    Mv::Postgresql::Validation::Builder::Format
+  )
+  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
+    Mv::Postgresql::Validation::Presence, 
+    Mv::Core::Validation::Builder::Presence
+  )
 
 end
 

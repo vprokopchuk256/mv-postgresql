@@ -71,10 +71,9 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
     describe "when presence validation provided" do
       let(:validation) {
         Mv::Postgresql::Validation::Presence.new(:table_name, 
-                                               :column_name, 
-                                               with: /exp/,
-                                               as: :trigger, 
-                                               update_trigger_name: :trg_mv_table_name) 
+                                                 :column_name, 
+                                                 as: :trigger, 
+                                                 update_trigger_name: :trg_mv_table_name) 
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Presence) }
@@ -83,10 +82,9 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
     describe "when uniqueness validation provided" do
       let(:validation) {
         Mv::Core::Validation::Uniqueness.new(:table_name, 
-                                               :column_name, 
-                                               with: /exp/,
-                                               as: :trigger, 
-                                               update_trigger_name: :trg_mv_table_name) 
+                                             :column_name, 
+                                             as: :trigger, 
+                                             update_trigger_name: :trg_mv_table_name) 
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Uniqueness) }
@@ -119,7 +117,6 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
     let(:validation) {
       Mv::Postgresql::Validation::Presence.new(:table_name, 
                                                :column_name, 
-                                               with: /exp/,
                                                as: :trigger, 
                                                update_trigger_name: :trg_mv_table_name_upd, 
                                                create_trigger_name: :trg_mv_table_name_ins) 
