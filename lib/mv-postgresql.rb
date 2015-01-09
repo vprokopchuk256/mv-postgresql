@@ -33,58 +33,31 @@ ActiveSupport.on_load(:mv_core) do
                                                           Mv::Postgresql::Constraint::Builder::Trigger)
 
   #validations
-  Mv::Core::Validation::Factory.register_validation(:exclusion, Mv::Postgresql::Validation::Exclusion)
-  Mv::Core::Validation::Factory.register_validation(:format, Mv::Postgresql::Validation::Format)
-  Mv::Core::Validation::Factory.register_validation(:inclusion, Mv::Postgresql::Validation::Inclusion)
-  Mv::Core::Validation::Factory.register_validation(:length, Mv::Postgresql::Validation::Length)
-  Mv::Core::Validation::Factory.register_validation(:presence, Mv::Postgresql::Validation::Presence)
+  Mv::Core::Validation::Factory.register_validations(
+    :exclusion => Mv::Postgresql::Validation::Exclusion,
+    :format    => Mv::Postgresql::Validation::Format,
+    :inclusion => Mv::Postgresql::Validation::Inclusion,
+    :length    => Mv::Postgresql::Validation::Length,
+    :presence  => Mv::Postgresql::Validation::Presence
+  )
 
   #validation builders in trigger
-  Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Exclusion, 
-    Mv::Postgresql::Validation::Builder::Trigger::Exclusion
-  )
-  Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Inclusion, 
-    Mv::Postgresql::Validation::Builder::Trigger::Inclusion
-  )
-  Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Length, 
-    Mv::Postgresql::Validation::Builder::Trigger::Length
-  )
-  Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Format, 
-    Mv::Postgresql::Validation::Builder::Trigger::Format
-  )
-  Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Presence, 
-    Mv::Postgresql::Validation::Builder::Trigger::Presence
-  )
-  Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builder(
-    Mv::Core::Validation::Uniqueness, 
-    Mv::Postgresql::Validation::Builder::Trigger::Uniqueness
+  Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builders(
+    Mv::Postgresql::Validation::Exclusion => Mv::Postgresql::Validation::Builder::Trigger::Exclusion,
+    Mv::Postgresql::Validation::Inclusion => Mv::Postgresql::Validation::Builder::Trigger::Inclusion,
+    Mv::Postgresql::Validation::Length    => Mv::Postgresql::Validation::Builder::Trigger::Length,
+    Mv::Postgresql::Validation::Format    => Mv::Postgresql::Validation::Builder::Trigger::Format,
+    Mv::Postgresql::Validation::Presence  => Mv::Postgresql::Validation::Builder::Trigger::Presence,
+    Mv::Core::Validation::Uniqueness      => Mv::Postgresql::Validation::Builder::Trigger::Uniqueness
   )
 
   #validation builders in check
-  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Exclusion, 
-    Mv::Postgresql::Validation::Builder::Exclusion
-  )
-  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Inclusion, 
-    Mv::Postgresql::Validation::Builder::Inclusion
-  )
-  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Length, 
-    Mv::Core::Validation::Builder::Length
-  )
-  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Format, 
-    Mv::Postgresql::Validation::Builder::Format
-  )
-  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
-    Mv::Postgresql::Validation::Presence, 
-    Mv::Core::Validation::Builder::Presence
+  Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builders(
+    Mv::Postgresql::Validation::Exclusion => Mv::Postgresql::Validation::Builder::Exclusion,
+    Mv::Postgresql::Validation::Inclusion => Mv::Postgresql::Validation::Builder::Inclusion,
+    Mv::Postgresql::Validation::Length    => Mv::Core::Validation::Builder::Length,
+    Mv::Postgresql::Validation::Format    => Mv::Postgresql::Validation::Builder::Format,
+    Mv::Postgresql::Validation::Presence  => Mv::Core::Validation::Builder::Presence
   )
 
 end
