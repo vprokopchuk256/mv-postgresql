@@ -29,8 +29,10 @@ ActiveSupport.on_load(:mv_core) do
   Mv::Core::Constraint::Factory.register_constraint(:check, Mv::Postgresql::Constraint::Check)
 
   #constraint builders
-  Mv::Core::Constraint::Builder::Factory.register_builder(Mv::Core::Constraint::Trigger, 
-                                                          Mv::Postgresql::Constraint::Builder::Trigger)
+  Mv::Core::Constraint::Builder::Factory.register_builders(
+    Mv::Core::Constraint::Trigger => Mv::Postgresql::Constraint::Builder::Trigger,
+    Mv::Postgresql::Constraint::Check => Mv::Postgresql::Constraint::Builder::Check
+  )
 
   #validations
   Mv::Core::Validation::Factory.register_validations(
