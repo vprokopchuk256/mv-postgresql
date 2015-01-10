@@ -43,7 +43,7 @@ describe "uniqueness validation in index constraint begaviour" do
     end
   end
 
-  describe "with valid value" do
+  describe "with not unique value" do
     let(:opts) { { uniqueness: 'value' } }
     
     it "raises an error with valid message" do

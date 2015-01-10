@@ -43,7 +43,7 @@ describe "presence validation in check constraint begaviour" do
     end
   end
 
-  describe "with valid value" do
+  describe "with invalid value" do
     let(:opts) { {
       presence: ' ', 
     } }
