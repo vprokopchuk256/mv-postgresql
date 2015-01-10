@@ -4,7 +4,7 @@ FormatTestTableName = Class.new(ActiveRecord::Base) do
   self.table_name = :table_name
 end
 
-describe "exclusion validation in trigger constraint begaviour" do
+describe "format validation in trigger constraint begaviour" do
   let(:db) { ActiveRecord::Base.connection }
 
   before do
