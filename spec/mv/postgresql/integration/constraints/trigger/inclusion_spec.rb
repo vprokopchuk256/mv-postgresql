@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-TableName = Class.new(ActiveRecord::Base) do
+InclusionTestTableName = Class.new(ActiveRecord::Base) do
   self.table_name = :table_name
 end
 
@@ -57,7 +57,7 @@ describe "inclusion validation in trigger constraint begaviour" do
 
   after { Mv::Core::Db::MigrationValidator.delete_all }
 
-  subject(:insert) { TableName.create! opts }
+  subject(:insert) { InclusionTestTableName.create! opts }
 
   describe "with all nulls" do
     let(:opts) { {} }
