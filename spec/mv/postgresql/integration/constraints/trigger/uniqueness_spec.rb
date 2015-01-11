@@ -15,7 +15,7 @@ describe "uniqueness validation in trigger constraint begaviour" do
     Class.new(::ActiveRecord::Migration) do
       def change
         create_table :table_name, id: false do |t|
-          t.string :uniqueness, validates: { uniqueness: { allow_nil: true, as: :trigger, message: 'uniqueness' } }
+          t.string :uniqueness, validates: { uniqueness: { allow_nil: true, as: :trigger, message: 'uniqueness_error' } }
         end
       end
     end.new('TestMigration', '20141118164617').migrate(:up)
@@ -47,7 +47,7 @@ describe "uniqueness validation in trigger constraint begaviour" do
     let(:opts) { { uniqueness: 'value' } }
     
     it "raises an error with valid message" do
-      expect{ subject }.to raise_error.with_message(/uniqueness/)
+      expect{ subject }.to raise_error.with_message(/uniqueness_error/)
     end
   end
 end

@@ -17,39 +17,39 @@ describe "exclusion validation in trigger constraint begaviour" do
         create_table :table_name, id: false do |t|
           ##string
           ###array
-          t.string :string_array, validates: { exclusion: { in: ['a', 'b'], allow_nil: true, as: :trigger, message: 'string_array' }}
+          t.string :string_array, validates: { exclusion: { in: ['a', 'b'], allow_nil: true, as: :trigger, message: 'string_array_error' }}
           ###range
-          t.string :string_range, validates: { exclusion: { in: 'a'..'b', allow_nil: true, as: :trigger, message: 'string_range' }}
+          t.string :string_range, validates: { exclusion: { in: 'a'..'b', allow_nil: true, as: :trigger, message: 'string_range_error' }}
 
           ##integer
           ###array
-          t.integer :integer_array, validates: { exclusion: { in: [1, 3], allow_nil: true, as: :trigger, message: 'integer_array' }}
+          t.integer :integer_array, validates: { exclusion: { in: [1, 3], allow_nil: true, as: :trigger, message: 'integer_array_error' }}
           ###range
-          t.integer :integer_range, validates: { exclusion: { in: 1..3, allow_nil: true, as: :trigger, message: 'integer_range' }}
+          t.integer :integer_range, validates: { exclusion: { in: 1..3, allow_nil: true, as: :trigger, message: 'integer_range_error' }}
 
           ##datetime
           ###array
-          t.datetime :datetime_array, validates: { exclusion: { in: [DateTime.new(2011, 1, 1, 1, 1, 1, '+2'), DateTime.new(2012, 2, 2, 2, 2, 2, '+2')], allow_nil: true, as: :trigger, message: 'datetime_array' }}
+          t.datetime :datetime_array, validates: { exclusion: { in: [DateTime.new(2011, 1, 1, 1, 1, 1, '+2'), DateTime.new(2012, 2, 2, 2, 2, 2, '+2')], allow_nil: true, as: :trigger, message: 'datetime_array_error' }}
           ###range
-          t.datetime :datetime_range, validates: { exclusion: { in: DateTime.new(2011, 1, 1, 1, 1, 1, '+2')..DateTime.new(2012, 2, 2, 2, 2, 2, '+2'), allow_nil: true, as: :trigger, message: 'datetime_range' }}
+          t.datetime :datetime_range, validates: { exclusion: { in: DateTime.new(2011, 1, 1, 1, 1, 1, '+2')..DateTime.new(2012, 2, 2, 2, 2, 2, '+2'), allow_nil: true, as: :trigger, message: 'datetime_range_error' }}
 
           ##time
           ###array
-          t.time :time_array, validates: { exclusion: { in: [Time.new(2011, 1, 1, 1, 1, 1, '+02:00'), Time.new(2012, 2, 2, 2, 2, 2, '+02:00')], allow_nil: true, as: :trigger, message: 'time_array' }}
+          t.time :time_array, validates: { exclusion: { in: [Time.new(2011, 1, 1, 1, 1, 1, '+02:00'), Time.new(2012, 2, 2, 2, 2, 2, '+02:00')], allow_nil: true, as: :trigger, message: 'time_array_error' }}
           ###range
-          t.time :time_range, validates: { exclusion: { in: Time.new(2011, 1, 1, 1, 1, 1, '+02:00')..Time.new(2012, 2, 2, 2, 2, 2, '+02:00'), allow_nil: true, as: :trigger, message: 'time_range' }}
+          t.time :time_range, validates: { exclusion: { in: Time.new(2011, 1, 1, 1, 1, 1, '+02:00')..Time.new(2012, 2, 2, 2, 2, 2, '+02:00'), allow_nil: true, as: :trigger, message: 'time_range_error' }}
 
           ##date
           ###array
-          t.date :date_array, validates: { exclusion: { in: [Date.new(2011, 1, 1), Date.new(2012, 2, 2)], allow_nil: true, as: :trigger, message: 'date_array' }}
+          t.date :date_array, validates: { exclusion: { in: [Date.new(2011, 1, 1), Date.new(2012, 2, 2)], allow_nil: true, as: :trigger, message: 'date_array_error' }}
           ###range
-          t.date :date_range, validates: { exclusion: { in: Date.new(2011, 1, 1)..Date.new(2012, 2, 2), allow_nil: true, as: :trigger, message: 'date_range' }}
+          t.date :date_range, validates: { exclusion: { in: Date.new(2011, 1, 1)..Date.new(2012, 2, 2), allow_nil: true, as: :trigger, message: 'date_range_error' }}
 
           ##float
           ###array
-          t.float :float_array, validates: { exclusion: { in: [1.1, 2.2], allow_nil: true, as: :trigger, message: 'float_array' }}
+          t.float :float_array, validates: { exclusion: { in: [1.1, 2.2], allow_nil: true, as: :trigger, message: 'float_array_error' }}
           ###range
-          t.float :float_range, validates: { exclusion: { in: 1.1..2.2, allow_nil: true, as: :trigger, message: 'float_range' }}
+          t.float :float_range, validates: { exclusion: { in: 1.1..2.2, allow_nil: true, as: :trigger, message: 'float_range_error' }}
         end
       end
     end.new('TestMigration', '20141118164617').migrate(:up)
@@ -92,7 +92,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { float_array: 1.1 } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/float_array/)
+          expect{ subject }.to raise_error.with_message(/float_array_error/)
         end
       end
 
@@ -100,7 +100,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { float_range: 1.2 } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/float_range/)
+          expect{ subject }.to raise_error.with_message(/float_range_error/)
         end
       end
     end
@@ -109,7 +109,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { date_array: DateTime.new(2011, 1, 1) } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/date_array/)
+          expect{ subject }.to raise_error.with_message(/date_array_error/)
         end
       end
 
@@ -117,7 +117,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { date_range: DateTime.new(2011, 1, 2) } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/date_range/)
+          expect{ subject }.to raise_error.with_message(/date_range_error/)
         end
       end
     end
@@ -126,7 +126,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { datetime_array: DateTime.new(2011, 1, 1, 1, 1, 1) } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/datetime_array/)
+          expect{ subject }.to raise_error.with_message(/datetime_array_error/)
         end
       end
 
@@ -134,7 +134,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { datetime_range: DateTime.new(2011, 1, 1, 1, 1, 2) } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/datetime_range/)
+          expect{ subject }.to raise_error.with_message(/datetime_range_error/)
         end
       end
     end
@@ -143,7 +143,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { integer_array: 1 } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/integer_array/)
+          expect{ subject }.to raise_error.with_message(/integer_array_error/)
         end
       end
 
@@ -151,7 +151,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { integer_range: 2 } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/integer_range/)
+          expect{ subject }.to raise_error.with_message(/integer_range_error/)
         end
       end
     end
@@ -160,7 +160,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { string_array: 'a' } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/string_array/)
+          expect{ subject }.to raise_error.with_message(/string_array_error/)
         end
       end
 
@@ -168,7 +168,7 @@ describe "exclusion validation in trigger constraint begaviour" do
         let(:opts) { { string_range: 'a' } }
         
         it "raises an error with valid message" do
-          expect{ subject }.to raise_error.with_message(/string_range/)
+          expect{ subject }.to raise_error.with_message(/string_range_error/)
         end
       end
     end

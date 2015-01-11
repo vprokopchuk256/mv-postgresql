@@ -15,8 +15,8 @@ describe "format validation in trigger constraint begaviour" do
     Class.new(::ActiveRecord::Migration) do
       def change
         create_table :table_name, id: false do |t|
-          t.string :format_string, validates: { format: { with: 'value', allow_nil: true, as: :trigger, message: 'format_string' } }
-          t.string :format_regexp, validates: { format: { with: /value/, allow_nil: true, as: :trigger, message: 'format_regexp' } }
+          t.string :format_string, validates: { format: { with: 'value', allow_nil: true, as: :trigger, message: 'format_string_error' } }
+          t.string :format_regexp, validates: { format: { with: /value/, allow_nil: true, as: :trigger, message: 'format_regexp_error' } }
         end
       end
     end.new('TestMigration', '20141118164617').migrate(:up)
@@ -50,7 +50,7 @@ describe "format validation in trigger constraint begaviour" do
       let(:opts) { { format_string: 'some string' } }
       
       it "raises an error with valid message" do
-        expect{ subject }.to raise_error.with_message(/format_string/)
+        expect{ subject }.to raise_error.with_message(/format_string_error/)
       end
     end
 
@@ -58,7 +58,7 @@ describe "format validation in trigger constraint begaviour" do
       let(:opts) { { format_regexp: 'some string' } }
       
       it "raises an error with valid message" do
-        expect{ subject }.to raise_error.with_message(/format_regexp/)
+        expect{ subject }.to raise_error.with_message(/format_regexp_error/)
       end
     end
   end

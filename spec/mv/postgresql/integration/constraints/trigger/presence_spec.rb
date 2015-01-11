@@ -15,7 +15,7 @@ describe "presence validation in trigger constraint begaviour" do
     Class.new(::ActiveRecord::Migration) do
       def change
         create_table :table_name, id: false do |t|
-          t.string :presence, validates: { presence: { allow_nil: true, as: :trigger, message: 'presence' } }
+          t.string :presence, validates: { presence: { allow_nil: true, as: :trigger, message: 'presence_error' } }
         end
       end
     end.new('TestMigration', '20141118164617').migrate(:up)
@@ -49,7 +49,7 @@ describe "presence validation in trigger constraint begaviour" do
     } }
     
     it "raises an error with valid message" do
-      expect{ subject }.to raise_error.with_message(/presence/)
+      expect{ subject }.to raise_error.with_message(/presence_error/)
     end
   end
 end
