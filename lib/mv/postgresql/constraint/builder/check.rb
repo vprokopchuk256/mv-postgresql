@@ -17,7 +17,9 @@ module Mv
 
           def delete
             validation_builders.group_by(&:table_name).each do |table_name, validations|
-              db.execute(drop_check_statement(table_name))
+              if db.table_exists?(table_name) 
+                db.execute(drop_check_statement(table_name))
+              end
             end
           end
 

@@ -6,6 +6,10 @@ describe Mv::Postgresql::Constraint::Builder::Check do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
     Mv::Core::Db::MigrationValidator.delete_all
+    ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.table_exists?(:table_name) 
+    ActiveRecord::Base.connection.create_table(:table_name) do |t|
+      t.string :column_name
+    end
   end
 
   describe "#validation_builders" do
@@ -158,6 +162,14 @@ describe Mv::Postgresql::Constraint::Builder::Check do
       subject { check_builder.delete }
 
       describe "when check constraint not yet exist" do
+        it "does not raise an error" do
+          expect { subject }.not_to raise_error
+        end
+      end
+
+      describe "when table does not exist" do
+        before { ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.table_exists?(:table_name)}
+        
         it "does not raise an error" do
           expect { subject }.not_to raise_error
         end

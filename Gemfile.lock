@@ -3,8 +3,8 @@ PATH
   specs:
     mv-core (1.0.1)
       activerecord (~> 4.1)
-      activesupport (~> 4.1)
       i18n
+      railties (~> 4.1)
 
 GEM
   remote: http://rubygems.org/

@@ -6,6 +6,10 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
     Mv::Core::Db::MigrationValidator.delete_all
+    ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.table_exists?(:table_name) 
+    ActiveRecord::Base.connection.create_table(:table_name) do |t|
+      t.string :column_name
+    end
   end
 
   describe "#validation_builders" do
@@ -268,6 +272,14 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
         it "deletes trigger function" do
           expect { subject }.to change{ procs('trg_mv_table_name_ins_func').length }.from(1).to(0)
+        end
+      end
+      
+      describe "when table does not exist" do
+        before { ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.table_exists?(:table_name)}
+        
+        it "does not raise an error" do
+          expect { subject }.not_to raise_error
         end
       end
 
