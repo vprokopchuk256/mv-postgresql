@@ -4,7 +4,6 @@ require 'rspec'
 require 'rspec/its'
 require 'mv-postgresql'
 require 'shoulda'
-require 'pry-byebug'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
