@@ -63,6 +63,14 @@ describe Mv::Postgresql::Constraint::Builder::Check do
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Core::Validation::Builder::Presence) }
     end
+
+    describe "when absence validation provided" do
+      let(:validation) {
+        Mv::Postgresql::Validation::Absence.new(:table_name, :column_name, as: :check)
+      }
+
+      its(:first) { is_expected.to be_a_kind_of(Mv::Core::Validation::Builder::Absence) }
+    end
   end
 
   describe "SQL methods" do
