@@ -7,6 +7,8 @@
 
 mv-postgresql is the PostgreSQL driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
 
+# Validators
+
 ### uniqueness
 
   Examples: 
