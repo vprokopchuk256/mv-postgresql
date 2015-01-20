@@ -67,4 +67,13 @@ describe Mv::Core::Validation::Factory do
 
     it { is_expected.to be_kind_of(Mv::Postgresql::Validation::Absence) }
   end
+
+  describe "custom" do
+    subject { factory.create_validation(:table_name, 
+                                        :column_name, 
+                                        :custom, 
+                                        { as: :check })}
+
+    it { is_expected.to be_kind_of(Mv::Postgresql::Validation::Custom) }
+  end
 end

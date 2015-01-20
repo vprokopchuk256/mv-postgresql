@@ -71,6 +71,17 @@ describe Mv::Postgresql::Constraint::Builder::Check do
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Core::Validation::Builder::Absence) }
     end
+
+    describe "when custom validation provided" do
+      let(:validation) {
+        Mv::Postgresql::Validation::Custom.new(:table_name, 
+                                                 :column_name, 
+                                                 as: :trigger, 
+                                                 update_trigger_name: :trg_mv_table_name) 
+      }
+
+      its(:first) { is_expected.to be_a_kind_of(Mv::Core::Validation::Builder::Custom) }
+    end
   end
 
   describe "SQL methods" do

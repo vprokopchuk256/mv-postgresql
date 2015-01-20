@@ -14,6 +14,7 @@ require 'mv/postgresql/validation/inclusion'
 require 'mv/postgresql/validation/length'
 require 'mv/postgresql/validation/presence'
 require 'mv/postgresql/validation/absence'
+require 'mv/postgresql/validation/custom'
 
 require 'mv/postgresql/validation/builder/trigger/exclusion'
 require 'mv/postgresql/validation/builder/trigger/inclusion'
@@ -22,6 +23,7 @@ require 'mv/postgresql/validation/builder/trigger/format'
 require 'mv/postgresql/validation/builder/trigger/presence'
 require 'mv/postgresql/validation/builder/trigger/absence'
 require 'mv/postgresql/validation/builder/trigger/uniqueness'
+require 'mv/postgresql/validation/builder/trigger/custom'
 
 ActiveSupport.on_load(:mv_core) do
   #router
@@ -43,7 +45,8 @@ ActiveSupport.on_load(:mv_core) do
     :inclusion => Mv::Postgresql::Validation::Inclusion,
     :length    => Mv::Postgresql::Validation::Length,
     :presence  => Mv::Postgresql::Validation::Presence,
-    :absence   => Mv::Postgresql::Validation::Absence
+    :absence   => Mv::Postgresql::Validation::Absence,
+    :custom   => Mv::Postgresql::Validation::Custom
   )
 
   #validation builders in trigger
@@ -54,7 +57,8 @@ ActiveSupport.on_load(:mv_core) do
     Mv::Postgresql::Validation::Format    => Mv::Postgresql::Validation::Builder::Trigger::Format,
     Mv::Postgresql::Validation::Presence  => Mv::Postgresql::Validation::Builder::Trigger::Presence,
     Mv::Postgresql::Validation::Absence   => Mv::Postgresql::Validation::Builder::Trigger::Absence,
-    Mv::Core::Validation::Uniqueness      => Mv::Postgresql::Validation::Builder::Trigger::Uniqueness
+    Mv::Core::Validation::Uniqueness      => Mv::Postgresql::Validation::Builder::Trigger::Uniqueness,
+    Mv::Postgresql::Validation::Custom    => Mv::Postgresql::Validation::Builder::Trigger::Custom,
   )
 
   #validation builders in check
@@ -64,7 +68,8 @@ ActiveSupport.on_load(:mv_core) do
     Mv::Postgresql::Validation::Length    => Mv::Core::Validation::Builder::Length,
     Mv::Postgresql::Validation::Format    => Mv::Postgresql::Validation::Builder::Format,
     Mv::Postgresql::Validation::Presence  => Mv::Core::Validation::Builder::Presence,
-    Mv::Postgresql::Validation::Absence   => Mv::Core::Validation::Builder::Absence
+    Mv::Postgresql::Validation::Absence   => Mv::Core::Validation::Builder::Absence,
+    Mv::Postgresql::Validation::Custom   => Mv::Core::Validation::Builder::Custom
   )
 
 end
