@@ -13,7 +13,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Custom do
     subject { described_class.new(custom(opts)).conditions }
 
     describe "by default" do
-      let(:opts) { { statement: "{column_value} > 0" } }
+      let(:opts) { { statement: "{column_name} > 0" } }
 
       it { is_expected.to eq([{
         statement: "NEW.column_name IS NOT NULL AND (NEW.column_name > 0)", 
