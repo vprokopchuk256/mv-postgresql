@@ -11,7 +11,7 @@ module Mv
         def initialize(table_name, column_name, opts)
           super
 
-          @check_name = opts.with_indifferent_access[:check_name] || default_check_name
+          @check_name = options.with_indifferent_access[:check_name] || default_check_name
         end
 
         def to_a
