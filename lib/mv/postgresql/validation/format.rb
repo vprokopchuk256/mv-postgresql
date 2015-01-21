@@ -11,6 +11,8 @@ module Mv
         validates :with, presence: true
 
         def initialize(table_name, column_name, opts)
+          opts = { with: opts } unless opts.is_a?(Hash)
+          
           super(table_name, column_name, opts)
 
           @with = opts.with_indifferent_access[:with]

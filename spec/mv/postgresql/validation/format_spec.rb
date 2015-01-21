@@ -20,21 +20,29 @@ describe Mv::Postgresql::Validation::Format do
   subject { instance }
 
   describe "#initialize" do
-    its(:table_name) { is_expected.to eq(:table_name) }
-    its(:column_name) { is_expected.to eq(:column_name) }
-    its(:with) { is_expected.to eq(:with) }
-    its(:message) { is_expected.to eq(:message) }
-    its(:on) { is_expected.to eq(:save) }
-    its(:create_trigger_name) { is_expected.to eq(:create_trigger_name) }
-    its(:update_trigger_name) { is_expected.to eq(:update_trigger_name) }
-    its(:allow_nil) { is_expected.to be_truthy }
-    its(:allow_blank) { is_expected.to be_truthy }
-    its(:as) { is_expected.to eq(:trigger) }
+    describe "by default" do
+      its(:table_name) { is_expected.to eq(:table_name) }
+      its(:column_name) { is_expected.to eq(:column_name) }
+      its(:with) { is_expected.to eq(:with) }
+      its(:message) { is_expected.to eq(:message) }
+      its(:on) { is_expected.to eq(:save) }
+      its(:create_trigger_name) { is_expected.to eq(:create_trigger_name) }
+      its(:update_trigger_name) { is_expected.to eq(:update_trigger_name) }
+      its(:allow_nil) { is_expected.to be_truthy }
+      its(:allow_blank) { is_expected.to be_truthy }
+      its(:as) { is_expected.to eq(:trigger) }
 
-    describe ":check_name" do
-      subject { instance(check_name: :check_name, as: :check) }
-      
-      its(:check_name) { is_expected.to eq(:check_name) }
+      describe ":check_name" do
+        subject { instance(check_name: :check_name, as: :check) }
+        
+        its(:check_name) { is_expected.to eq(:check_name) }
+      end
+    end
+
+    describe "when simplification provided" do
+      subject { described_class.new(:table_name, :column_name, /aaa/)}
+
+      its(:with) { is_expected.to eq(/aaa/) }
     end
   end
 
