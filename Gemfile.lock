@@ -202,7 +202,7 @@ DEPENDENCIES
   coveralls
   guard-rspec (~> 4.5)
   jeweler (~> 2.0)
-  mv-core (~> 2.0)
+  mv-core (~> 2.1)
   pg (~> 0.17)
   pry-byebug
   railties (~> 4.1)

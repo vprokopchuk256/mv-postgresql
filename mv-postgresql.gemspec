@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<railties>, ["~> 4.1"])
       s.add_runtime_dependency(%q<pg>, ["~> 0.17"])
-      s.add_runtime_dependency(%q<mv-core>, ["~> 2.0"])
+      s.add_runtime_dependency(%q<mv-core>, ["~> 2.1"])
       s.add_development_dependency(%q<jeweler>, ["~> 2.0"])
       s.add_development_dependency(%q<rspec>, ["~> 3.1"])
       s.add_development_dependency(%q<rspec-its>, ["~> 1.1"])
@@ -67,7 +67,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<railties>, ["~> 4.1"])
       s.add_dependency(%q<pg>, ["~> 0.17"])
-      s.add_dependency(%q<mv-core>, ["~> 2.0"])
+      s.add_dependency(%q<mv-core>, ["~> 2.1"])
       s.add_dependency(%q<jeweler>, ["~> 2.0"])
       s.add_dependency(%q<rspec>, ["~> 3.1"])
       s.add_dependency(%q<rspec-its>, ["~> 1.1"])
@@ -77,7 +77,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<railties>, ["~> 4.1"])
     s.add_dependency(%q<pg>, ["~> 0.17"])
-    s.add_dependency(%q<mv-core>, ["~> 2.0"])
+    s.add_dependency(%q<mv-core>, ["~> 2.1"])
     s.add_dependency(%q<jeweler>, ["~> 2.0"])
     s.add_dependency(%q<rspec>, ["~> 3.1"])
     s.add_dependency(%q<rspec-its>, ["~> 1.1"])
