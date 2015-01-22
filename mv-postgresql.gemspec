@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Valeriy Prokopchuk"]
-  s.date = "2015-01-19"
+  s.date = "2015-01-22"
   s.description = "Postgresql constraints in migrations similiar to ActiveRecord validations"
   s.email = "vprokopchuk@gmail.com"
   s.extra_rdoc_files = [
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
     "lib/mv/postgresql/validation/builder/format.rb",
     "lib/mv/postgresql/validation/builder/inclusion.rb",
     "lib/mv/postgresql/validation/builder/trigger/absence.rb",
+    "lib/mv/postgresql/validation/builder/trigger/custom.rb",
     "lib/mv/postgresql/validation/builder/trigger/exclusion.rb",
     "lib/mv/postgresql/validation/builder/trigger/format.rb",
     "lib/mv/postgresql/validation/builder/trigger/inclusion.rb",
@@ -39,6 +40,7 @@ Gem::Specification.new do |s|
     "lib/mv/postgresql/validation/builder/trigger/trigger_column.rb",
     "lib/mv/postgresql/validation/builder/trigger/uniqueness.rb",
     "lib/mv/postgresql/validation/check_support.rb",
+    "lib/mv/postgresql/validation/custom.rb",
     "lib/mv/postgresql/validation/exclusion.rb",
     "lib/mv/postgresql/validation/format.rb",
     "lib/mv/postgresql/validation/inclusion.rb",
