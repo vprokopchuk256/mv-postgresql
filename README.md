@@ -1,11 +1,10 @@
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vprokopchuk256/mv-postgresql/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Build Status](https://travis-ci.org/vprokopchuk256/mv-postgresql.svg?branch=master)](https://travis-ci.org/vprokopchuk256/mv-postgresql)
 [![Coverage Status](https://coveralls.io/repos/vprokopchuk256/mv-postgresql/badge.png?branch=master)](https://coveralls.io/r/vprokopchuk256/mv-postgresql?branch=master)
 [![Gem Version](https://badge.fury.io/rb/mv-postgresql.svg)](http://badge.fury.io/rb/mv-postgresql)
 
 # Introduction
 
-mv-postgresql is the PostgreSQL driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
+mv-postgresql is the PostgreSQL driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core). Allows RoR developer to define database constraints in a familiar ActiveRecord validations manner
 
 # Validators
 
@@ -13,7 +12,7 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
 
   Examples: 
 
-  validate uniqueness of the column 'column_name':
+  validate uniqueness of the column `column_name`:
   
   ```ruby
   validates :table_name, :column_name, uniqueness: true
@@ -42,7 +41,15 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
 
   ```ruby
   change :table_name do |t|
-     t.change :column_name, :string, :validates: { uniqueness: false }
+     t.change :column_name, :string, validates: { uniqueness: false }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+     t.string :column_name, uniqueness: true
   end
   ```
 
@@ -59,27 +66,27 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
 
 ### length
 
-  Examples: 
+Examples: 
 
   ```ruby
   validates :table_name, :column_name, 
-                               length: { in: 5..8, 
-                                         message: 'Wrong length message'}
+            length: { in: 5..8, message: 'Wrong length message'}
   ```
 
- allow `NULL`:
+allow `NULL`:
 
   ```ruby
   validates :table_name, :column_name, 
-                               length: { is: 3, allow_nil: true}
+            length: { is: 3, allow_nil: true}
   ```
 
   allow blank values: 
 
   ```ruby
   validates :table_name, :column_name, 
-                        length: { maximum: 3, 
-                                  too_long: 'Value is longer than 3 symbols' } 
+            length: { maximum: 3, 
+                      allow_blank: true, 
+                      too_long: 'Value is longer than 3 symbols' } 
   ```
 
   define constraint in trigger: 
@@ -89,6 +96,32 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
                         length: { maximum: 3, 
                                   as: :trigger, 
                                   too_long: 'Value is longer than 3 symbols' } 
+  ```
+
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.string :column_name, validates: { length: { is: 3, allow_nil: true} }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :string, validates: { length: { is: 3 } }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :string_3, length: 3
+    t.string :string_from_1_to_3, length: 1..3,
+    t.string :string_1_or_3, length: [1, 3]
+    t.string :string_4, validates: { length: 4 }
+    t.string :string_4_in_trigger: length: { is: 4, as: :trigger }
+  end
   ```
 
   Options:
@@ -130,18 +163,41 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
 
   ```ruby
   validates :table_name, :column_name, 
-                               inclusion: { in: [1, 2, 3], 
-                                            on: :update, 
-                                            as: :check }
+            inclusion: { in: [1, 2, 3], as: :check }
   ```
 
   make it in trigger: 
 
   ```ruby
   validates :table_name, :column_name, 
-                               inclusion: { in: 1..3, 
-                                            on: :create, 
-                                            as: :trigger }
+                         inclusion: { in: 1..3, 
+                                      on: :create, 
+                                      as: :trigger }
+  ```
+
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.integer :column_name, validates: { inclusion: { in: 1..3 } }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :integer, validates: { inclusion: { in: 1..3 } }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :str_or_str_1, inclusion: ['str', 'str1']
+    t.string :from_str_to_str_1, inclusion: 'str'..'str1'
+    t.string :str_or_str_1_in_trigger, inclusion: { in: ['str', 'str1'], 
+                                                    as: :trigger}
+  end
   ```
 
   Options:
@@ -161,6 +217,16 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
   Examples:
 
   exclude 1, 2, and 3: 
+ 
+  within `create_table` statement: 
+
+  ```ruby
+  create_tablel :tabld_name do |t|
+    t.integer :column_name, validates: { exclusion: { in: [1, 2, 3] } }
+  end
+  ```
+
+  or as standalone statements: 
 
   ```ruby
   validates :table_name, :column_name, exclusion: { in: [1, 2, 3] }
@@ -179,9 +245,7 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
 
   ```ruby
   validates :table_name, :column_name, 
-                               exclusion: { in: [1, 2, 3], 
-                                            on: :update, 
-                                            as: :check }
+                         exclusion: { in: [1, 2, 3], as: :check }
   ```
 
   as trigger: 
@@ -193,6 +257,30 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
                                             as: :trigger }
   ```
 
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.integer :column_name, validates: { exclusion: { in: 1..3 } }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :integer, validates: { exclusion: { in: 1..3 } }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :neither_str_nor_str_1, exclusion: ['str', 'str1']
+    t.string :from_str_to_str_1, exclusion: 'str'..'str1'
+    t.string :str_or_str_1_in_trigger, exclusion: { in: ['str', 'str1'], 
+                                                    as: :trigger}
+  end
+  ```
 
   Options:
 
@@ -237,6 +325,29 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
                               on: :create }
   ```
 
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.string :column_name, validates: { presence: true }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :string, validates: { presence: true }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :presence_in_check, presence: true
+    t.string :presence_in_trigger, presence: { as: :trigger, on: :create }
+  end
+  ```
+
   Options:
 
   * `message` - message that should be shown if validation failed
@@ -279,6 +390,29 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
                               on: :create }
   ```
 
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.string :column_name, validates: { absence: true }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :string, validates: { absence: true }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :absence_in_check, absence: true
+    t.string :absence_in_trigger, absence: { as: :trigger, on: :create }
+  end
+  ```
+
   Options:
 
   * `message` - message that should be shown if validation failed
@@ -316,9 +450,99 @@ mv-postgresql is the PostgreSQL driver for Migration Validators project (details
               as: :trigger }
   ```
 
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :column_name, validates { format: { with: /word/ } }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+    t.change :column_name, :string, validates: { format: { with: /word/ } }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :contains_word, format: /word/ 
+    t.string :contains_word_in_trigger, format: { with: /word/, as: :trigger }
+  end
+  ```
+
   Options:
 
   * `with` - regular expression that column value should be matched to
+  * `message` - message that should be shown if validation failed
+  * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
+  * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
+  * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
+  * `allow_nil` - ignore validation for `nil` values. Default value: `false`
+  * `allow_blank` - ignore validation for blank values. Default value: `false`
+  * `as` - defines the way how constraint will be implemented. Possible values: `[:trigger, :check]` Default value: `:check`
+
+### custom (version >= 2.1 is required)
+
+  Examples: 
+
+  allows only values that contains 'word' inside: 
+
+  ```ruby
+  validates :table_name, :column_name, 
+                         custom: { statement: "TRIM({column_name}) ~ 'word'" }
+  ```
+
+  with failure message: 
+
+  ```ruby
+  validates :table_name, :column_name, 
+    custom: { statement: "TRIM({column_name}) ~ 'word'", 
+              message: 'Column_name value should contain start word' }
+  ```
+
+  implemented as trigger:
+
+  ```ruby
+  validates :table_name, :column_name, 
+    custom: { statement: "TRIM({column_name}) ~ 'word'", 
+              message: 'Column_name value should contain start word', 
+              as: :trigger }
+  ```
+
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :column_name, 
+            validates: { custom: { statement: "TRIM({column_name}) ~ 'word'"} }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+    t.change :column_name, :string, 
+            validates: { custom: { statement: "TRIM({column_name}) ~ 'word'"} }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :contains_word, custom: "TRIM({contains_word}) ~ 'word'"
+    t.string :contains_word_synonym, 
+             validates: "TRIM({contains_word_synonym}) ~ 'word'"
+    t.string :contains_word_in_trigger, 
+             custom: { statement: "TRIM({contains_word_in_trigger}) ~ 'word'",          as: :trigger }
+  end
+  ```
+
+  Options:
+
+  * `statement` - db expression that column value should be matched to
   * `message` - message that should be shown if validation failed
   * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
   * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
