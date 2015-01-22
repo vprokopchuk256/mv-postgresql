@@ -536,7 +536,8 @@ allow `NULL`:
     t.string :contains_word_synonym, 
              validates: "TRIM({contains_word_synonym}) ~ 'word'"
     t.string :contains_word_in_trigger, 
-             custom: { statement: "TRIM({contains_word_in_trigger}) ~ 'word'",          as: :trigger }
+             custom: { statement: "TRIM({contains_word_in_trigger}) ~ 'word'", 
+             as: :trigger }
   end
   ```
 
