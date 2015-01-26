@@ -25,6 +25,8 @@ require 'mv/postgresql/validation/builder/trigger/absence'
 require 'mv/postgresql/validation/builder/trigger/uniqueness'
 require 'mv/postgresql/validation/builder/trigger/custom'
 
+require 'mv/postgresql/validation/active_model_presenter/format'
+
 ActiveSupport.on_load(:mv_core) do
   #router
   Mv::Core::Router.define_route(:check, Mv::Postgresql::Route::Check)
@@ -70,6 +72,16 @@ ActiveSupport.on_load(:mv_core) do
     Mv::Postgresql::Validation::Presence  => Mv::Core::Validation::Builder::Presence,
     Mv::Postgresql::Validation::Absence   => Mv::Core::Validation::Builder::Absence,
     Mv::Postgresql::Validation::Custom   => Mv::Core::Validation::Builder::Custom
+  )
+
+  #validation active model presenters
+  Mv::Core::Validation::ActiveModelPresenter::Factory.register_presenters(
+    Mv::Postgresql::Validation::Exclusion   => Mv::Core::Validation::ActiveModelPresenter::Exclusion,
+    Mv::Postgresql::Validation::Inclusion   => Mv::Core::Validation::ActiveModelPresenter::Inclusion,
+    Mv::Postgresql::Validation::Length      => Mv::Core::Validation::ActiveModelPresenter::Length,
+    Mv::Postgresql::Validation::Presence    => Mv::Core::Validation::ActiveModelPresenter::Presence,
+    Mv::Postgresql::Validation::Absence     => Mv::Core::Validation::ActiveModelPresenter::Absence,
+    Mv::Postgresql::Validation::Format      => Mv::Postgresql::Validation::ActiveModelPresenter::Format
   )
 
 end
