@@ -7,7 +7,7 @@ describe Mv::Postgresql::Validation::Builder::Exclusion do
   def exclusion(opts = {})
     Mv::Postgresql::Validation::Exclusion.new(:table_name, 
                                               :column_name,
-                                              { in: [1, 5], message: 'some error message' }.merge(opts)) 
+                                              { in: [1, 5], message: 'is excluded' }.merge(opts)) 
   end
 
   describe "#conditions" do
@@ -18,7 +18,7 @@ describe Mv::Postgresql::Validation::Builder::Exclusion do
 
       it { is_expected.to eq([{
         statement: "column_name IS NOT NULL AND column_name NOT IN ('2001-01-01', '2002-02-02')", 
-        message: 'some error message'
+        message: 'ColumnName is excluded'
       }]) }
     end
 
@@ -27,7 +27,7 @@ describe Mv::Postgresql::Validation::Builder::Exclusion do
 
       it { is_expected.to eq([{
         statement: "column_name IS NOT NULL AND column_name NOT IN ('2001-01-01 01:01:01', '2002-02-02 02:02:02')", 
-        message: 'some error message'
+        message: 'ColumnName is excluded'
       }]) }
     end
 
@@ -36,7 +36,7 @@ describe Mv::Postgresql::Validation::Builder::Exclusion do
 
       it { is_expected.to eq([{
         statement: "column_name IS NOT NULL AND column_name NOT IN ('2001-01-01 01:01:01', '2002-02-02 02:02:02')", 
-        message: 'some error message'
+        message: 'ColumnName is excluded'
       }]) }
     end
   end

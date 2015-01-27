@@ -6,7 +6,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Length do
   def length(opts = {})
     Mv::Postgresql::Validation::Length.new(:table_name, 
                                         :column_name,
-                                        { with: /exp/, message: 'some error message' }.merge(opts)) 
+                                        { with: /exp/, message: 'has invalid length' }.merge(opts)) 
   end
 
   describe "#conditions" do
@@ -18,7 +18,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Length do
 
         it { is_expected.to eq([{
           statement: 'NEW.column_name IS NOT NULL AND LENGTH(NEW.column_name) IN (1, 3)', 
-          message: 'some error message'
+          message: 'ColumnName has invalid length'
         }]) }
       end
     end

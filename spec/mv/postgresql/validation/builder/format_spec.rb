@@ -6,7 +6,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
   def format(opts = {})
     Mv::Postgresql::Validation::Format.new(:table_name, 
                                         :column_name,
-                                        { with: /exp/, message: 'some error message' }.merge(opts)) 
+                                        { with: /exp/, message: 'is not valid' }.merge(opts)) 
   end
 
   describe "#initalize" do
@@ -17,7 +17,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
     its(:allow_nil) { is_expected.to eq(format.allow_nil) }
     its(:allow_blank) { is_expected.to eq(format.allow_blank) }
     its(:column_name) { is_expected.to eq(format.column_name) }
-    its(:message) { is_expected.to eq(format.message) }
+    its(:message) { is_expected.to eq(format.full_message) }
   end
 
   describe "#conditions" do
@@ -28,7 +28,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
       
       it { is_expected.to eq([{
         statement: "column_name IS NOT NULL AND column_name ~ 'exp'", 
-        message: 'some error message'
+        message: 'ColumnName is not valid'
       }]) }
     end
 
@@ -37,7 +37,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
       
       it { is_expected.to eq([{
         statement: "column_name IS NOT NULL AND column_name ~ 'exp'", 
-        message: 'some error message'
+        message: 'ColumnName is not valid'
       }]) }
     end
 
@@ -54,7 +54,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
 
       it { is_expected.to eq([{
         statement: "column_name ~ 'exp' OR column_name IS NULL", 
-        message: 'some error message'
+        message: 'ColumnName is not valid'
       }]) }
     end
 
@@ -63,7 +63,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
       
       it { is_expected.to eq([{
         statement: "column_name ~ 'exp' OR column_name IS NULL OR LENGTH(TRIM(column_name)) = 0", 
-        message: 'some error message'
+        message: 'ColumnName is not valid'
       }]) }
     end
 
@@ -72,7 +72,7 @@ describe Mv::Postgresql::Validation::Builder::Format do
 
       it { is_expected.to eq([{
         statement: "column_name ~ 'exp' OR column_name IS NULL OR LENGTH(TRIM(column_name)) = 0", 
-        message: 'some error message'
+        message: 'ColumnName is not valid'
       }]) }
     end
   end

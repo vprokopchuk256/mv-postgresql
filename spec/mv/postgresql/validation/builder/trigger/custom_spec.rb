@@ -6,7 +6,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Custom do
   def custom(opts = {})
     Mv::Postgresql::Validation::Custom.new(:table_name, 
                                            :column_name,
-                                           { message: 'some error message' }.merge(opts))
+                                           { message: 'is not valid as expected' }.merge(opts))
   end
 
   describe "#conditions" do
@@ -17,7 +17,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Custom do
 
       it { is_expected.to eq([{
         statement: "NEW.column_name IS NOT NULL AND (NEW.column_name > 0)", 
-        message: 'some error message'
+        message: 'ColumnName is not valid as expected'
       }]) }
     end 
   end

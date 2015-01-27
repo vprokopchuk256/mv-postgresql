@@ -6,7 +6,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Uniqueness do
   def uniqueness(opts = {})
     Mv::Core::Validation::Uniqueness.new(:table_name, 
                                          :column_name,
-                                         { message: 'some error message' }.merge(opts))
+                                         { message: 'must be unique' }.merge(opts))
   end
 
 
@@ -20,7 +20,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Uniqueness do
         statement: "NEW.column_name IS NOT NULL AND NOT EXISTS(SELECT column_name 
                                  FROM table_name 
                                 WHERE NEW.column_name = column_name)".squish, 
-        message: 'some error message'
+        message: 'ColumnName must be unique'
       }])}
     end
   end

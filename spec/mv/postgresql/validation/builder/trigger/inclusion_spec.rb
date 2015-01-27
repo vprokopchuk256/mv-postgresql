@@ -6,7 +6,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Inclusion do
   def inclusion(opts = {})
     Mv::Postgresql::Validation::Inclusion.new(:table_name, 
                                               :column_name,
-                                              { in: [1, 5], message: 'some error message' }.merge(opts)) 
+                                              { in: [1, 5], message: 'is included' }.merge(opts)) 
   end
 
   describe "#conditions" do
@@ -17,7 +17,7 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Inclusion do
 
       it { is_expected.to eq([{
         statement: "NEW.column_name IS NOT NULL AND NEW.column_name IN ('2001-01-01', '2002-02-02')", 
-        message: 'some error message'
+        message: 'ColumnName is included'
       }]) }
     end
   end
