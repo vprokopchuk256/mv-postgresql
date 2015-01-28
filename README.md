@@ -738,7 +738,9 @@ allow `NULL`:
   * `allow_blank` - ignore validation for blank values. Default value: `false`
   * `as` - defines the way how constraint will be implemented. Possible values: `[:trigger, :check]` Default value: `:check`
 
-### custom (version >= 2.1 is required)
+### custom 
+
+  (version >= 2.1 is required)
 
   Examples: 
 
