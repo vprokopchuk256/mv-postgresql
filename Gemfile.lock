@@ -1,11 +1,3 @@
-PATH
-  remote: /projects/mv/mv-core
-  specs:
-    mv-core (2.1.0)
-      activerecord (~> 4.1)
-      i18n (~> 0.7)
-      railties (~> 4.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -114,6 +106,10 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mv-core (2.2.0)
+      activerecord (~> 4.1)
+      i18n (~> 0.7)
+      railties (~> 4.1)
     nenv (0.2.0)
     netrc (0.10.2)
     nokogiri (1.6.5)
@@ -206,7 +202,7 @@ DEPENDENCIES
   coveralls
   guard-rspec (~> 4.5)
   jeweler (~> 2.0)
-  mv-core!
+  mv-core (~> 2.2)
   pg (~> 0.17)
   pry-byebug
   railties (~> 4.1)
