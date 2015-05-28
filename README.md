@@ -852,6 +852,10 @@ allow `NULL`:
 
 * Integration with ActiveRecord
 
+**(2.2.1)** (29 May, 2015)
+
+* Made it possible to use several mv-* drivers in the same project
+
 ## Contributing
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet

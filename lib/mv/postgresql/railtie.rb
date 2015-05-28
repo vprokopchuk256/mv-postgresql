@@ -1,10 +1,11 @@
-require 'mv/postgresql/active_record/connection_adapters/postgresql_adapter_decorator'
-
 module Mv
   module Postgresql
     class Railtie < ::Rails::Railtie
       initializer 'mv-postgresql.initialization', after: 'active_record.initialize_database' do
-        ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send(:prepend, Mv::Postgresql::ActiveRecord::ConnectionAdapters::PostgresqlAdapterDecorator)
+        if defined?(::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter) &&
+           ::ActiveRecord::Base.connection.is_a?(::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
+          require 'mv/postgresql/loader.rb'
+        end
       end
     end
   end
