@@ -22,8 +22,6 @@ require 'mv/postgresql/validation/builder/trigger/absence'
 require 'mv/postgresql/validation/builder/trigger/uniqueness'
 require 'mv/postgresql/validation/builder/trigger/custom'
 
-require 'mv/postgresql/validation/active_model_presenter/format'
-
 require 'mv/postgresql/active_record/connection_adapters/postgresql_adapter_decorator'
 
 #router
@@ -79,7 +77,7 @@ Mv::Core::Validation::ActiveModelPresenter::Factory.register_presenters(
   Mv::Postgresql::Validation::Length      => Mv::Core::Validation::ActiveModelPresenter::Length,
   Mv::Postgresql::Validation::Presence    => Mv::Core::Validation::ActiveModelPresenter::Presence,
   Mv::Postgresql::Validation::Absence     => Mv::Core::Validation::ActiveModelPresenter::Absence,
-  Mv::Postgresql::Validation::Format      => Mv::Postgresql::Validation::ActiveModelPresenter::Format
+  Mv::Postgresql::Validation::Format      => Mv::Core::Validation::ActiveModelPresenter::Format
 )
 
 ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send(

@@ -11,12 +11,12 @@ describe Mv::Core::Validation::ActiveModelPresenter::Factory do
 
       it { is_expected.to be_an_instance_of(Mv::Core::Validation::ActiveModelPresenter::Exclusion) }
     end
-   
+
     describe "inclusion" do
       let(:validation) { Mv::Postgresql::Validation::Inclusion.new(:table_name, :column_name, in: [1, 2]) }
 
       it { is_expected.to be_an_instance_of(Mv::Core::Validation::ActiveModelPresenter::Inclusion) }
-    end 
+    end
 
     describe "length" do
       let(:validation) { Mv::Postgresql::Validation::Length.new(:table_name, :column_name, in: [1, 2]) }
@@ -45,7 +45,7 @@ describe Mv::Core::Validation::ActiveModelPresenter::Factory do
     describe "format" do
       let(:validation) { Mv::Postgresql::Validation::Format.new(:table_name, :column_name, {}) }
 
-      it { is_expected.to be_an_instance_of(Mv::Postgresql::Validation::ActiveModelPresenter::Format) }
+      it { is_expected.to be_an_instance_of(Mv::Core::Validation::ActiveModelPresenter::Format) }
     end
   end
 end
