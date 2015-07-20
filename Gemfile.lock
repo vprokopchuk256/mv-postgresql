@@ -28,7 +28,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    arel (6.0.0)
+    arel (6.0.2)
     builder (3.2.2)
     byebug (3.5.1)
       columnize (~> 0.8)
@@ -106,7 +106,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mv-core (2.2.0)
+    mv-core (2.2.1)
       activerecord (~> 4.1)
       i18n (~> 0.7)
       railties (~> 4.1)
@@ -202,7 +202,7 @@ DEPENDENCIES
   coveralls
   guard-rspec (~> 4.5)
   jeweler (~> 2.0)
-  mv-core (~> 2.2)
+  mv-core (~> 2.2.1)
   pg (~> 0.17)
   pry-byebug
   railties (~> 4.1)

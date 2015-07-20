@@ -2,9 +2,9 @@
 [![Coverage Status](https://coveralls.io/repos/vprokopchuk256/mv-postgresql/badge.png?branch=master)](https://coveralls.io/r/vprokopchuk256/mv-postgresql?branch=master)
 [![Gem Version](https://badge.fury.io/rb/mv-postgresql.svg)](http://badge.fury.io/rb/mv-postgresql)
 
-# `Migration Validators` project. PostgreSQL driver. 
+# `Migration Validators` project. PostgreSQL driver.
 
-Define validations directly in DB as PostgreSQL constraints and integrate them into your model transparently. See [mv-core](https://github.com/vprokopchuk256/mv-core) for details. There you will be able to review high level project information. Below you can see details of the migration validations that are supported by PostgreSQL driver.  
+Define validations directly in DB as PostgreSQL constraints and integrate them into your model transparently. See [mv-core](https://github.com/vprokopchuk256/mv-core) for details. There you will be able to review high level project information. Below you can see details of the migration validations that are supported by PostgreSQL driver.
 
 #Table Of Contents
 * [Validations](#validations)
@@ -23,10 +23,10 @@ Define validations directly in DB as PostgreSQL constraints and integrate them i
 
 ### uniqueness
 
-  Examples: 
+  Examples:
 
   validate uniqueness of the column `column_name`:
-  
+
   ```ruby
   def up
     validates :table_name, :column_name, uniqueness: true
@@ -37,11 +37,11 @@ Define validations directly in DB as PostgreSQL constraints and integrate them i
   end
   ```
 
-  define validation as trigger with specified failure message:  
+  define validation as trigger with specified failure message:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
+    validates :table_name, :column_name,
                     uniqueness: { message: 'Error message', as: :trigger }
   end
 
@@ -50,7 +50,7 @@ Define validations directly in DB as PostgreSQL constraints and integrate them i
   end
   ```
 
-  define validation as unique index: 
+  define validation as unique index:
 
   ```ruby
   def up
@@ -62,7 +62,7 @@ Define validations directly in DB as PostgreSQL constraints and integrate them i
   end
   ```
 
-  all above are available in a create and change table blocks: 
+  all above are available in a create and change table blocks:
 
   ```ruby
   def change
@@ -96,7 +96,7 @@ Define validations directly in DB as PostgreSQL constraints and integrate them i
   end
   ```
 
-  Options: 
+  Options:
 
   * `:message` - text of the error message that will be shown if constraint violated.  Ignored unless `:as == :trigger`
   * `:index_name` - name of the index that will be created for validator. Ignored unless `:as == :index`
@@ -109,11 +109,11 @@ Define validations directly in DB as PostgreSQL constraints and integrate them i
 
 ### length
 
-Examples: 
+Examples:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
+    validates :table_name, :column_name,
               length: { in: 5..8, message: 'Wrong length message'}
   end
 
@@ -126,7 +126,7 @@ allow `NULL`:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
+    validates :table_name, :column_name,
               length: { is: 3, allow_nil: true}
   end
 
@@ -135,14 +135,14 @@ allow `NULL`:
   end
   ```
 
-  allow blank values: 
+  allow blank values:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-              length: { maximum: 3, 
-                        allow_blank: true, 
-                        too_long: 'Value is longer than 3 symbols' } 
+    validates :table_name, :column_name,
+              length: { maximum: 3,
+                        allow_blank: true,
+                        too_long: 'Value is longer than 3 symbols' }
   end
 
   def down
@@ -150,14 +150,14 @@ allow `NULL`:
   end
   ```
 
-  define constraint in trigger: 
+  define constraint in trigger:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-                         length: { maximum: 3, 
-                                   as: :trigger, 
-                                   too_long: 'Value is longer than 3 symbols' } 
+    validates :table_name, :column_name,
+                         length: { maximum: 3,
+                                   as: :trigger,
+                                   too_long: 'Value is longer than 3 symbols' }
   end
 
   def down
@@ -165,7 +165,7 @@ allow `NULL`:
   end
   ```
 
-  all above are available in a create and change table blocks: 
+  all above are available in a create and change table blocks:
 
   ```ruby
   def change
@@ -222,9 +222,9 @@ allow `NULL`:
 
 ### inclusion
 
-  Examples: 
+  Examples:
 
-  valid values array: 
+  valid values array:
 
   ```ruby
   def up
@@ -236,12 +236,12 @@ allow `NULL`:
   end
   ```
 
-  with failure message specified: 
+  with failure message specified:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-    inclusion: { in: [1, 2, 3], 
+    validates :table_name, :column_name,
+    inclusion: { in: [1, 2, 3],
                  message: "Column value should be equal to 1 or 2 or 3" }
   end
 
@@ -254,7 +254,7 @@ allow `NULL`:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
+    validates :table_name, :column_name,
               inclusion: { in: [1, 2, 3], as: :check }
   end
 
@@ -263,13 +263,13 @@ allow `NULL`:
   end
   ```
 
-  make it in trigger: 
+  make it in trigger:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-                           inclusion: { in: 1..3, 
-                                        on: :create, 
+    validates :table_name, :column_name,
+                           inclusion: { in: 1..3,
+                                        on: :create,
                                         as: :trigger }
   end
 
@@ -278,7 +278,7 @@ allow `NULL`:
   end
   ```
 
-  all above are available in a create and change table blocks: 
+  all above are available in a create and change table blocks:
 
   ```ruby
   def change
@@ -309,7 +309,7 @@ allow `NULL`:
     create_table :table_name do |t|
       t.string :str_or_str_1, inclusion: ['str', 'str1']
       t.string :from_str_to_str_1, inclusion: 'str'..'str1'
-      t.string :str_or_str_1_in_trigger, inclusion: { in: ['str', 'str1'], 
+      t.string :str_or_str_1_in_trigger, inclusion: { in: ['str', 'str1'],
                                                       as: :trigger}
     end
   end
@@ -326,14 +326,14 @@ allow `NULL`:
   * `allow_blank` - ignore validation for blank values. Default value: `false`
   * `as` - defines the way how constraint will be implemented. Possible values: `[:trigger, :check]` Default value: `:check`
 
-  
+
 ### exclusion
 
   Examples:
 
-  exclude 1, 2, and 3: 
- 
-  within `create_table` statement: 
+  exclude 1, 2, and 3:
+
+  within `create_table` statement:
 
   ```ruby
   def change
@@ -343,7 +343,7 @@ allow `NULL`:
   end
   ```
 
-  or as standalone statements: 
+  or as standalone statements:
 
   ```ruby
   def up
@@ -355,13 +355,13 @@ allow `NULL`:
   end
   ```
 
-  the same with failure message: 
+  the same with failure message:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
+    validates :table_name, :column_name,
       exclusion: {
-        in: [1, 2, 3], 
+        in: [1, 2, 3],
         message: "Column 'column_name' should not  be equal to 1 or 2 or 3" }
   end
 
@@ -370,11 +370,11 @@ allow `NULL`:
   end
   ```
 
-  as check constraint: 
+  as check constraint:
 
   ```ruby
   def up
-  validates :table_name, :column_name, 
+  validates :table_name, :column_name,
                          exclusion: { in: [1, 2, 3], as: :check }
   end
 
@@ -383,13 +383,13 @@ allow `NULL`:
   end
   ```
 
-  as trigger: 
+  as trigger:
 
   ```ruby
   def up
-  validates :table_name, :column_name, 
-                               exclusion: { in: 1..3, 
-                                            on: :create, 
+  validates :table_name, :column_name,
+                               exclusion: { in: 1..3,
+                                            on: :create,
                                             as: :trigger }
   end
 
@@ -398,7 +398,7 @@ allow `NULL`:
   end
   ```
 
-  all above are available in a create and change table blocks: 
+  all above are available in a create and change table blocks:
 
   ```ruby
   def change
@@ -429,7 +429,7 @@ allow `NULL`:
     create_table :table_name do |t|
       t.string :neither_str_nor_str_1, exclusion: ['str', 'str1']
       t.string :from_str_to_str_1, exclusion: 'str'..'str1'
-      t.string :str_or_str_1_in_trigger, exclusion: { in: ['str', 'str1'], 
+      t.string :str_or_str_1_in_trigger, exclusion: { in: ['str', 'str1'],
                                                       as: :trigger}
     end
   end
@@ -448,7 +448,7 @@ allow `NULL`:
 
 ### presence
 
-  Examples: 
+  Examples:
 
   ```ruby
   def up
@@ -460,11 +460,11 @@ allow `NULL`:
   end
   ```
 
-  with failure message: 
+  with failure message:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
+    validates :table_name, :column_name,
                     presence: { message: 'value should not be empty' }
   end
 
@@ -473,12 +473,12 @@ allow `NULL`:
   end
   ```
 
-  implemented as trigger: 
+  implemented as trigger:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-                    presence: { message: 'value should not be empty', 
+    validates :table_name, :column_name,
+                    presence: { message: 'value should not be empty',
                                 as: :trigger }
   end
 
@@ -487,13 +487,13 @@ allow `NULL`:
   end
   ```
 
-  check when record is inserted only: 
+  check when record is inserted only:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-                    presence: { message: 'value should not be empty', 
-                                as: :trigger, 
+    validates :table_name, :column_name,
+                    presence: { message: 'value should not be empty',
+                                as: :trigger,
                                 on: :create }
   end
 
@@ -502,7 +502,7 @@ allow `NULL`:
   end
   ```
 
-  all above are available in a create and change table blocks: 
+  all above are available in a create and change table blocks:
 
   ```ruby
   def change
@@ -547,7 +547,7 @@ allow `NULL`:
 
 ### absence
 
-  Examples: 
+  Examples:
 
   ```ruby
   def up
@@ -559,11 +559,11 @@ allow `NULL`:
   end
   ```
 
-  with failure message: 
+  with failure message:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
+    validates :table_name, :column_name,
                     absence: { message: 'value should be empty' }
   end
 
@@ -572,12 +572,12 @@ allow `NULL`:
   end
   ```
 
-  implemented as trigger: 
+  implemented as trigger:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-                    absence: { message: 'value should be empty', 
+    validates :table_name, :column_name,
+                    absence: { message: 'value should be empty',
                                 as: :trigger }
   end
 
@@ -586,13 +586,13 @@ allow `NULL`:
   end
   ```
 
-  check when record is inserted only: 
+  check when record is inserted only:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-                    absence: { message: 'value should be empty', 
-                                as: :trigger, 
+    validates :table_name, :column_name,
+                    absence: { message: 'value should be empty',
+                                as: :trigger,
                                 on: :create }
   end
 
@@ -601,7 +601,7 @@ allow `NULL`:
   end
   ```
 
-  all above are available in a create and change table blocks: 
+  all above are available in a create and change table blocks:
 
   ```ruby
   def change
@@ -648,9 +648,9 @@ allow `NULL`:
 
 ### format
 
-  Examples: 
+  Examples:
 
-  allows only values that contains 'word' inside: 
+  allows only values that contains 'word' inside:
 
   ```ruby
   def up
@@ -662,12 +662,12 @@ allow `NULL`:
   end
   ```
 
-  with failure message: 
+  with failure message:
 
   ```ruby
   def up
-  validates :table_name, :column_name, 
-    format: { with: /word/, 
+  validates :table_name, :column_name,
+    format: { with: /word/,
               message: 'Column_name value should contain start word' }
   end
 
@@ -680,9 +680,9 @@ allow `NULL`:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-      format: { with: /word/, 
-                message: 'Column_name value should contain start word', 
+    validates :table_name, :column_name,
+      format: { with: /word/,
+                message: 'Column_name value should contain start word',
                 as: :trigger }
   end
 
@@ -691,7 +691,7 @@ allow `NULL`:
   end
   ```
 
-  all above are available in a create and change table blocks: 
+  all above are available in a create and change table blocks:
 
   ```ruby
   def change
@@ -720,8 +720,8 @@ allow `NULL`:
   ```ruby
   def change
     create_table :table_name do |t|
-      t.string :contains_word, format: /word/ 
-      t.string :contains_word_in_trigger, format: { with: /word/, 
+      t.string :contains_word, format: /word/
+      t.string :contains_word_in_trigger, format: { with: /word/,
                                                     as: :trigger }
     end
   end
@@ -738,17 +738,17 @@ allow `NULL`:
   * `allow_blank` - ignore validation for blank values. Default value: `false`
   * `as` - defines the way how constraint will be implemented. Possible values: `[:trigger, :check]` Default value: `:check`
 
-### custom 
+### custom
 
   (version >= 2.1 is required)
 
-  Examples: 
+  Examples:
 
-  allows only values that contains 'word' inside: 
+  allows only values that contains 'word' inside:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
+    validates :table_name, :column_name,
                         custom: { statement: "TRIM({column_name}) ~ 'word'" }
   end
 
@@ -757,12 +757,12 @@ allow `NULL`:
   end
   ```
 
-  with failure message: 
+  with failure message:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-      custom: { statement: "TRIM({column_name}) ~ 'word'", 
+    validates :table_name, :column_name,
+      custom: { statement: "TRIM({column_name}) ~ 'word'",
                 message: 'Column_name value should contain start word' }
   end
 
@@ -775,9 +775,9 @@ allow `NULL`:
 
   ```ruby
   def up
-    validates :table_name, :column_name, 
-      custom: { statement: "TRIM({column_name}) ~ 'word'", 
-                message: 'Column_name value should contain start word', 
+    validates :table_name, :column_name,
+      custom: { statement: "TRIM({column_name}) ~ 'word'",
+                message: 'Column_name value should contain start word',
                 as: :trigger }
   end
 
@@ -786,12 +786,12 @@ allow `NULL`:
   end
   ```
 
-  all above are available in a create and change table blocks: 
+  all above are available in a create and change table blocks:
 
   ```ruby
   def change
     create_table :table_name do |t|
-      t.string :column_name, 
+      t.string :column_name,
             validates: { custom: { statement: "TRIM({column_name}) ~ 'word'"} }
     end
   end
@@ -800,7 +800,7 @@ allow `NULL`:
   ```ruby
   def up
     change :table_name do |t|
-      t.change :column_name, :string, 
+      t.change :column_name, :string,
             validates: { custom: { statement: "TRIM({column_name}) ~ 'word'"} }
     end
   end
@@ -818,10 +818,10 @@ allow `NULL`:
   def change
     create_table :table_name do |t|
       t.string :contains_word, custom: "TRIM({contains_word}) ~ 'word'"
-      t.string :contains_word_synonym, 
+      t.string :contains_word_synonym,
                validates: "TRIM({contains_word_synonym}) ~ 'word'"
-      t.string :contains_word_in_trigger, 
-            custom: { statement: "TRIM({contains_word_in_trigger}) ~ 'word'", 
+      t.string :contains_word_in_trigger,
+            custom: { statement: "TRIM({contains_word_in_trigger}) ~ 'word'",
             as: :trigger }
     end
   end
@@ -846,7 +846,7 @@ allow `NULL`:
 
 **(2.1.0)** (22 Jan, 2015)
 
-* Custom validation 
+* Custom validation
 
 **(2.2.0)** (28 Jan, 2015)
 
@@ -855,6 +855,10 @@ allow `NULL`:
 **(2.2.1)** (29 May, 2015)
 
 * Made it possible to use several mv-* drivers in the same project
+
+**(2.2.2)** (20 Jul, 2015)
+
+* Fix issue with invalid parameters number in `add_column` and `change_column` methods
 
 ## Contributing
 
