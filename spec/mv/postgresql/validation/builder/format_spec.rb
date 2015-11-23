@@ -4,15 +4,15 @@ require 'mv/postgresql/validation/builder/format'
 
 describe Mv::Postgresql::Validation::Builder::Format do
   def format(opts = {})
-    Mv::Postgresql::Validation::Format.new(:table_name, 
+    Mv::Postgresql::Validation::Format.new(:table_name,
                                         :column_name,
-                                        { with: /exp/, message: 'is not valid' }.merge(opts)) 
+                                        { with: /exp/, message: 'is not valid' }.merge(opts))
   end
 
   describe "#initalize" do
     subject { described_class.new(format) }
 
-    its(:validation) { is_expected.to eq(format) }    
+    its(:validation) { is_expected.to eq(format) }
     its(:with) { is_expected.to eq(format.with) }
     its(:allow_nil) { is_expected.to eq(format.allow_nil) }
     its(:allow_blank) { is_expected.to eq(format.allow_blank) }
@@ -25,19 +25,19 @@ describe Mv::Postgresql::Validation::Builder::Format do
 
     describe "when regex passed" do
       let(:opts) { { with: /exp/ } }
-      
+
       it { is_expected.to eq([{
-        statement: "column_name IS NOT NULL AND column_name ~ 'exp'", 
-        message: 'ColumnName is not valid'
+        statement: "column_name IS NOT NULL AND column_name ~ 'exp'",
+        message: 'column_name is not valid'
       }]) }
     end
 
     describe "when string passed" do
       let(:opts) { { with: 'exp' } }
-      
+
       it { is_expected.to eq([{
-        statement: "column_name IS NOT NULL AND column_name ~ 'exp'", 
-        message: 'ColumnName is not valid'
+        statement: "column_name IS NOT NULL AND column_name ~ 'exp'",
+        message: 'column_name is not valid'
       }]) }
     end
 
@@ -53,17 +53,17 @@ describe Mv::Postgresql::Validation::Builder::Format do
       let(:opts) { { with: /exp/, allow_nil: true } }
 
       it { is_expected.to eq([{
-        statement: "column_name ~ 'exp' OR column_name IS NULL", 
-        message: 'ColumnName is not valid'
+        statement: "column_name ~ 'exp' OR column_name IS NULL",
+        message: 'column_name is not valid'
       }]) }
     end
 
     describe "when blank is allowed" do
       let(:opts) { { with: /exp/, allow_blank: true } }
-      
+
       it { is_expected.to eq([{
-        statement: "column_name ~ 'exp' OR column_name IS NULL OR LENGTH(TRIM(column_name)) = 0", 
-        message: 'ColumnName is not valid'
+        statement: "column_name ~ 'exp' OR column_name IS NULL OR LENGTH(TRIM(column_name)) = 0",
+        message: 'column_name is not valid'
       }]) }
     end
 
@@ -71,8 +71,8 @@ describe Mv::Postgresql::Validation::Builder::Format do
       let(:opts) { { with: /exp/, allow_blank: true, allow_nil: true } }
 
       it { is_expected.to eq([{
-        statement: "column_name ~ 'exp' OR column_name IS NULL OR LENGTH(TRIM(column_name)) = 0", 
-        message: 'ColumnName is not valid'
+        statement: "column_name ~ 'exp' OR column_name IS NULL OR LENGTH(TRIM(column_name)) = 0",
+        message: 'column_name is not valid'
       }]) }
     end
   end

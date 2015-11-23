@@ -4,9 +4,9 @@ require 'mv/postgresql/validation/builder/trigger/exclusion'
 
 describe Mv::Postgresql::Validation::Builder::Trigger::Exclusion do
   def exclusion(opts = {})
-    Mv::Postgresql::Validation::Exclusion.new(:table_name, 
+    Mv::Postgresql::Validation::Exclusion.new(:table_name,
                                               :column_name,
-                                              { in: [1, 5], message: 'is excluded' }.merge(opts)) 
+                                              { in: [1, 5], message: 'is excluded' }.merge(opts))
   end
 
   describe "#conditions" do
@@ -16,8 +16,8 @@ describe Mv::Postgresql::Validation::Builder::Trigger::Exclusion do
       let(:opts) { { in: [Date.new(2001, 1, 1), Date.new(2002, 2, 2)] } }
 
       it { is_expected.to eq([{
-        statement: "NEW.column_name IS NOT NULL AND NEW.column_name NOT IN ('2001-01-01', '2002-02-02')", 
-        message: 'ColumnName is excluded'
+        statement: "NEW.column_name IS NOT NULL AND NEW.column_name NOT IN ('2001-01-01', '2002-02-02')",
+        message: 'column_name is excluded'
       }]) }
     end
   end
