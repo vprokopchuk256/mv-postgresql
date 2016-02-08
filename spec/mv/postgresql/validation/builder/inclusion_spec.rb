@@ -38,6 +38,15 @@ describe Mv::Postgresql::Validation::Builder::Inclusion do
         statement: "column_name IS NOT NULL AND column_name IN ('2001-01-01 01:01:01', '2002-02-02 02:02:02')",
         message: 'column_name is included'
       }]) }
+
+     describe "when boolean array passed" do
+      let(:opts) { { in: [true, false] } }
+
+      it { is_expected.to eq([{
+        statement: "column_name IS NOT NULL AND column_name IN (true, false)",
+        message: 'column_name is included'
+      }]) }
     end
+   end
   end
 end
