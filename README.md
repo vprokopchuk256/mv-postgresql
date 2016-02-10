@@ -864,6 +864,10 @@ allow `NULL`:
 
 * Do not camel case column name in error message
 
+**(2.2.4)** (9 Feb, 2016)
+
+* Support booleans in inclusion validator
+
 ## Contributing
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
