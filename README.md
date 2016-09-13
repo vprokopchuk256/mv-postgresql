@@ -872,7 +872,7 @@ allow `NULL`:
 
 * Suppress exception while running db:schema:load
 
-**(2.2.6)** (12 Sep, 2016)
+**(2.2.7)** (12 Sep, 2016)
 
 * Escape single quotes in the custom validation statement body
 
