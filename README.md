@@ -210,7 +210,7 @@ allow `NULL`:
   * `is` - exact length of the value
   * `maximum` -  maximum allowed length
   * `minimum` - minimum allowed length
-  * `message` - message that should be shown if validation failed and specific message is not defined
+  * `message` - message that should be shown if validation failed and specific message is not defined. Ignored unless `:as == :trigger`
   * `too_long` - message that will be shown if value longer than allowed. Ignored unless maximum value is defined
   * `too_short` - message that will be shown if value shorter than allowed. Ignored unless minimum value is defined
   * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
@@ -318,7 +318,7 @@ allow `NULL`:
   Options:
 
   * `in` - range or array that column value should be contained in.
-  * `message` - message that should be shown if validation failed
+  * `message` - message that should be shown if validation failed. Ignored unless `:as == :trigger`
   * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
   * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
   * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
@@ -438,7 +438,7 @@ allow `NULL`:
   Options:
 
   * `:in` - range or array that column value should NOT be contained in.
-  * `:message` - message that should be shown if validation failed
+  * `:message` - message that should be shown if validation failed. Ignored unless `:as == :trigger`
   * `:on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
   * `:create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
   * `:update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
@@ -537,7 +537,7 @@ allow `NULL`:
 
   Options:
 
-  * `message` - message that should be shown if validation failed
+  * `message` - message that should be shown if validation failed. Ignored unless `:as == :trigger`
   * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
   * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
   * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
@@ -638,7 +638,7 @@ allow `NULL`:
 
   Options:
 
-  * `message` - message that should be shown if validation failed
+  * `message` - message that should be shown if validation failed. Ignored unless `:as == :trigger`
   * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
   * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
   * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
@@ -730,7 +730,7 @@ allow `NULL`:
   Options:
 
   * `with` - regular expression that column value should be matched to
-  * `message` - message that should be shown if validation failed
+  * `message` - message that should be shown if validation failed. Ignored unless `:as == :trigger`
   * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
   * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
   * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
@@ -830,7 +830,7 @@ allow `NULL`:
   Options:
 
   * `statement` - db expression that column value should be matched to
-  * `message` - message that should be shown if validation failed
+  * `message` - message that should be shown if validation failed. Ignored unless `:as == :trigger`
   * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
   * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
   * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
@@ -871,6 +871,10 @@ allow `NULL`:
 **(2.2.5)** (23 Feb, 2016)
 
 * Suppress exception while running db:schema:load
+
+**(2.2.6)** (12 Sep, 2016)
+
+* Escape single quotes in the custom validation statement body
 
 ## Contributing
 
