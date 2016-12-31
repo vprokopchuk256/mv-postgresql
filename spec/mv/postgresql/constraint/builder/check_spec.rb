@@ -6,7 +6,7 @@ describe Mv::Postgresql::Constraint::Builder::Check do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
     Mv::Core::Db::MigrationValidator.delete_all
-    ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.table_exists?(:table_name) 
+    ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.data_source_exists?(:table_name)
     ActiveRecord::Base.connection.create_table(:table_name) do |t|
       t.string :column_name
     end
@@ -74,10 +74,10 @@ describe Mv::Postgresql::Constraint::Builder::Check do
 
     describe "when custom validation provided" do
       let(:validation) {
-        Mv::Postgresql::Validation::Custom.new(:table_name, 
-                                                 :column_name, 
-                                                 as: :trigger, 
-                                                 update_trigger_name: :trg_mv_table_name) 
+        Mv::Postgresql::Validation::Custom.new(:table_name,
+                                                 :column_name,
+                                                 as: :trigger,
+                                                 update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Core::Validation::Builder::Custom) }
@@ -99,14 +99,14 @@ describe Mv::Postgresql::Constraint::Builder::Check do
 
     before do
       Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
-        Mv::Postgresql::Validation::Presence, 
+        Mv::Postgresql::Validation::Presence,
         test_validation_builder_klass
       )
     end
 
     after do
       Mv::Postgresql::Constraint::Builder::Check.validation_builders_factory.register_builder(
-        Mv::Postgresql::Validation::Presence, 
+        Mv::Postgresql::Validation::Presence,
         Mv::Core::Validation::Builder::Presence
       )
     end
@@ -187,8 +187,8 @@ describe Mv::Postgresql::Constraint::Builder::Check do
       end
 
       describe "when table does not exist" do
-        before { ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.table_exists?(:table_name)}
-        
+        before { ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.data_source_exists?(:table_name)}
+
         it "does not raise an error" do
           expect { subject }.not_to raise_error
         end

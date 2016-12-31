@@ -11,9 +11,9 @@ describe "length validation in trigger constraint begaviour" do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
 
-    db.drop_table(:table_name) if db.table_exists?(:table_name)
+    db.drop_table(:table_name) if db.data_source_exists?(:table_name)
 
-    Class.new(::ActiveRecord::Migration) do
+    Class.new(::ActiveRecord::Migration[5.0]) do
       def change
         create_table :table_name, id: false do |t|
           t.string :length_is, validates: { length: { is: 5, allow_nil: true, as: :trigger, message: 'length_is_error' } }
@@ -34,7 +34,7 @@ describe "length validation in trigger constraint begaviour" do
 
   describe "with all nulls" do
     let(:opts) { {} }
-    
+
     it "doesn't raise an error" do
       expect{ subject }.not_to raise_error
     end
@@ -42,15 +42,15 @@ describe "length validation in trigger constraint begaviour" do
 
   describe "with all valid values" do
     let(:opts) { {
-      length_is: '12345', 
-      length_in_array: '1', 
-      length_in_range: '1234', 
-      length_within_array: '1', 
-      length_within_range: '1234', 
-      length_minimum: '123456', 
+      length_is: '12345',
+      length_in_array: '1',
+      length_in_range: '1234',
+      length_within_array: '1',
+      length_within_range: '1234',
+      length_minimum: '123456',
       length_maximum: '1234'
     } }
-    
+
     it "doesn't raise an error" do
       expect{ subject }.not_to raise_error
     end
@@ -59,7 +59,7 @@ describe "length validation in trigger constraint begaviour" do
   describe "with invalid" do
     describe ":is" do
       let(:opts) { { length_is: '123456' } }
-      
+
       it "raises an error with valid message" do
         expect{ subject }.to raise_error.with_message(/length_is_error/)
       end
@@ -68,7 +68,7 @@ describe "length validation in trigger constraint begaviour" do
     describe ":in" do
       describe "array" do
         let(:opts) { { length_in_array: '1234' } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/length_in_array_error/)
         end
@@ -76,7 +76,7 @@ describe "length validation in trigger constraint begaviour" do
 
       describe "range" do
         let(:opts) { { length_in_range: '123456' } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/length_in_range_error/)
         end
@@ -86,7 +86,7 @@ describe "length validation in trigger constraint begaviour" do
     describe ":within" do
       describe "array" do
         let(:opts) { { length_within_array: '1234' } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/length_within_array_error/)
         end
@@ -94,7 +94,7 @@ describe "length validation in trigger constraint begaviour" do
 
       describe "range" do
         let(:opts) { { length_within_range: '123456' } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/length_within_range_error/)
         end
@@ -103,7 +103,7 @@ describe "length validation in trigger constraint begaviour" do
 
     describe ":minimum" do
       let(:opts) { { length_minimum: '1234' } }
-      
+
       it "raises an error with valid message" do
         expect{ subject }.to raise_error.with_message(/length_minimum_error/)
       end
@@ -111,7 +111,7 @@ describe "length validation in trigger constraint begaviour" do
 
     describe ":maximum" do
       let(:opts) { { length_maximum: '123456' } }
-      
+
       it "raises an error with valid message" do
         expect{ subject }.to raise_error.with_message(/length_maximum_error/)
       end

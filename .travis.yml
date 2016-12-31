@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - "2.0.0"
+  - "2.2.5"
 script: bundle exec rspec spec
-before_script: 
+before_script:
   - psql -c 'create database validation_migration_test_db;' -U postgres

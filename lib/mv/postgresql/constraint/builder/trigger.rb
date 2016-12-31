@@ -14,7 +14,7 @@ module Mv
 
           def delete
             validation_builders.group_by(&:table_name).each do |table_name, validations|
-              if db.table_exists?(table_name) 
+              if db.data_source_exists?(table_name)
                 db.execute(drop_trigger_statement(table_name))
                 db.execute(drop_function_statement())
               end
@@ -33,11 +33,11 @@ module Mv
           end
 
           def drop_trigger_statement table_name
-            "DROP TRIGGER IF EXISTS #{name} ON #{table_name};" 
+            "DROP TRIGGER IF EXISTS #{name} ON #{table_name};"
           end
 
           def create_trigger_statement table_name
-            "CREATE TRIGGER #{name} BEFORE #{update? ? 'UPDATE' : 'INSERT'} ON #{table_name} 
+            "CREATE TRIGGER #{name} BEFORE #{update? ? 'UPDATE' : 'INSERT'} ON #{table_name}
              FOR EACH ROW EXECUTE PROCEDURE #{func_name}();".squish
           end
 
@@ -57,7 +57,7 @@ module Mv
              "CREATE FUNCTION #{func_name}() RETURNS TRIGGER AS $#{func_name}$
                 BEGIN
                  #{function_body(table_name)};
-                
+
                  RETURN NEW;
                 END;
               $#{func_name}$ LANGUAGE plpgsql;"

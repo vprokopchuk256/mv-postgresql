@@ -17,7 +17,7 @@ module Mv
 
           def delete
             validation_builders.group_by(&:table_name).each do |table_name, validations|
-              if db.table_exists?(table_name) 
+              if db.data_source_exists?(table_name)
                 db.execute(drop_check_statement(table_name))
               end
             end
@@ -36,7 +36,7 @@ module Mv
           end
 
           def drop_check_statement(table_name)
-            "ALTER TABLE #{table_name} DROP CONSTRAINT IF EXISTS #{name};" 
+            "ALTER TABLE #{table_name} DROP CONSTRAINT IF EXISTS #{name};"
           end
         end
       end

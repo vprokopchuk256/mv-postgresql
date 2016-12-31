@@ -6,7 +6,7 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
     Mv::Core::Db::MigrationValidator.delete_all
-    ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.table_exists?(:table_name) 
+    ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.data_source_exists?(:table_name)
     ActiveRecord::Base.connection.create_table(:table_name) do |t|
       t.string :column_name
     end
@@ -26,11 +26,11 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     describe "when exlusion validation provided" do
       let(:validation) {
-        Mv::Postgresql::Validation::Exclusion.new(:table_name, 
-                                                 :column_name, 
+        Mv::Postgresql::Validation::Exclusion.new(:table_name,
+                                                 :column_name,
                                                  in: [1, 3],
-                                                 as: :trigger, 
-                                                 update_trigger_name: :trg_mv_table_name) 
+                                                 as: :trigger,
+                                                 update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Exclusion) }
@@ -38,11 +38,11 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     describe "when inclusion validation provided" do
       let(:validation) {
-        Mv::Postgresql::Validation::Inclusion.new(:table_name, 
-                                                 :column_name, 
+        Mv::Postgresql::Validation::Inclusion.new(:table_name,
+                                                 :column_name,
                                                  in: [1, 3],
-                                                 as: :trigger, 
-                                                 update_trigger_name: :trg_mv_table_name) 
+                                                 as: :trigger,
+                                                 update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Inclusion) }
@@ -50,11 +50,11 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     describe "when length validation provided" do
       let(:validation) {
-        Mv::Postgresql::Validation::Length.new(:table_name, 
-                                                 :column_name, 
+        Mv::Postgresql::Validation::Length.new(:table_name,
+                                                 :column_name,
                                                  in: [1, 3],
-                                                 as: :trigger, 
-                                                 update_trigger_name: :trg_mv_table_name) 
+                                                 as: :trigger,
+                                                 update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Length) }
@@ -62,11 +62,11 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     describe "when format validation provided" do
       let(:validation) {
-        Mv::Postgresql::Validation::Format.new(:table_name, 
-                                               :column_name, 
+        Mv::Postgresql::Validation::Format.new(:table_name,
+                                               :column_name,
                                                with: /exp/,
-                                               as: :trigger, 
-                                               update_trigger_name: :trg_mv_table_name) 
+                                               as: :trigger,
+                                               update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Format) }
@@ -74,10 +74,10 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     describe "when presence validation provided" do
       let(:validation) {
-        Mv::Postgresql::Validation::Presence.new(:table_name, 
-                                                 :column_name, 
-                                                 as: :trigger, 
-                                                 update_trigger_name: :trg_mv_table_name) 
+        Mv::Postgresql::Validation::Presence.new(:table_name,
+                                                 :column_name,
+                                                 as: :trigger,
+                                                 update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Presence) }
@@ -85,10 +85,10 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     describe "when absence validation provided" do
       let(:validation) {
-        Mv::Postgresql::Validation::Absence.new(:table_name, 
-                                                 :column_name, 
-                                                 as: :trigger, 
-                                                 update_trigger_name: :trg_mv_table_name) 
+        Mv::Postgresql::Validation::Absence.new(:table_name,
+                                                 :column_name,
+                                                 as: :trigger,
+                                                 update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Absence) }
@@ -96,10 +96,10 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     describe "when uniqueness validation provided" do
       let(:validation) {
-        Mv::Core::Validation::Uniqueness.new(:table_name, 
-                                             :column_name, 
-                                             as: :trigger, 
-                                             update_trigger_name: :trg_mv_table_name) 
+        Mv::Core::Validation::Uniqueness.new(:table_name,
+                                             :column_name,
+                                             as: :trigger,
+                                             update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Uniqueness) }
@@ -107,10 +107,10 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     describe "when custom validation provided" do
       let(:validation) {
-        Mv::Postgresql::Validation::Custom.new(:table_name, 
-                                                 :column_name, 
-                                                 as: :trigger, 
-                                                 update_trigger_name: :trg_mv_table_name) 
+        Mv::Postgresql::Validation::Custom.new(:table_name,
+                                                 :column_name,
+                                                 as: :trigger,
+                                                 update_trigger_name: :trg_mv_table_name)
       }
 
       its(:first) { is_expected.to be_a_kind_of(Mv::Postgresql::Validation::Builder::Trigger::Custom) }
@@ -128,24 +128,24 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
 
     before do
       Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builder(
-        Mv::Postgresql::Validation::Presence, 
+        Mv::Postgresql::Validation::Presence,
         test_validation_builder_klass
       )
     end
 
     after do
       Mv::Postgresql::Constraint::Builder::Trigger.validation_builders_factory.register_builder(
-        Mv::Postgresql::Validation::Presence, 
+        Mv::Postgresql::Validation::Presence,
         Mv::Postgresql::Validation::Builder::Trigger::Presence
       )
     end
 
     let(:validation) {
-      Mv::Postgresql::Validation::Presence.new(:table_name, 
-                                               :column_name, 
-                                               as: :trigger, 
-                                               update_trigger_name: :trg_mv_table_name_upd, 
-                                               create_trigger_name: :trg_mv_table_name_ins) 
+      Mv::Postgresql::Validation::Presence.new(:table_name,
+                                               :column_name,
+                                               as: :trigger,
+                                               update_trigger_name: :trg_mv_table_name_upd,
+                                               create_trigger_name: :trg_mv_table_name_ins)
     }
 
     let(:test_validation_builder_klass) do
@@ -186,14 +186,14 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
       end
 
       describe "when function exists but trigger does not" do
-        before do 
+        before do
           ActiveRecord::Base.connection.execute(
              "CREATE FUNCTION trg_mv_table_name_ins_func() RETURNS TRIGGER AS $trg_mv_table_name_ins_func$
                 BEGIN
                   IF NOT(1 = 1) THEN
                     RAISE EXCEPTION 'some error exception';
                   END IF;
-                
+
                   RETURN NEW;
                 END;
               $trg_mv_table_name_ins_func$ LANGUAGE plpgsql;"
@@ -220,20 +220,20 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
       subject { create_trigger_builder.update(create_trigger_builder) }
 
       describe "when both trigger and trigger function exist" do
-        before do 
+        before do
           ActiveRecord::Base.connection.execute(
              "CREATE FUNCTION trg_mv_table_name_ins_func() RETURNS TRIGGER AS $trg_mv_table_name_ins_func$
                 BEGIN
                   IF NOT(1 = 1) THEN
                     RAISE EXCEPTION 'some error exception';
                   END IF;
-                
+
                   RETURN NEW;
                 END;
               $trg_mv_table_name_ins_func$ LANGUAGE plpgsql;"
           )
           ActiveRecord::Base.connection.execute(
-           "CREATE TRIGGER trg_mv_table_name_ins 
+           "CREATE TRIGGER trg_mv_table_name_ins
               BEFORE INSERT ON table_name
               FOR EACH ROW EXECUTE PROCEDURE trg_mv_table_name_ins_func();"
           )
@@ -245,14 +245,14 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
       end
 
       describe "when function exists but trigger does not" do
-        before do 
+        before do
           ActiveRecord::Base.connection.execute(
              "CREATE FUNCTION trg_mv_table_name_ins_func() RETURNS TRIGGER AS $trg_mv_table_name_ins_func$
                 BEGIN
                   IF NOT(1 = 1) THEN
                     RAISE EXCEPTION 'some error exception';
                   END IF;
-                
+
                   RETURN NEW;
                 END;
               $trg_mv_table_name_ins_func$ LANGUAGE plpgsql;"
@@ -269,20 +269,20 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
       subject { create_trigger_builder.delete }
 
       describe "when both trigger and trigger function exist" do
-        before do 
+        before do
           ActiveRecord::Base.connection.execute(
              "CREATE FUNCTION trg_mv_table_name_ins_func() RETURNS TRIGGER AS $trg_mv_table_name_ins_func$
                 BEGIN
                   IF NOT(1 = 1) THEN
                     RAISE EXCEPTION 'some error exception';
                   END IF;
-                
+
                   RETURN NEW;
                 END;
               $trg_mv_table_name_ins_func$ LANGUAGE plpgsql;"
           )
           ActiveRecord::Base.connection.execute(
-           "CREATE TRIGGER trg_mv_table_name_ins 
+           "CREATE TRIGGER trg_mv_table_name_ins
               BEFORE INSERT ON table_name
               FOR EACH ROW EXECUTE PROCEDURE trg_mv_table_name_ins_func();"
           )
@@ -296,24 +296,24 @@ describe Mv::Postgresql::Constraint::Builder::Trigger do
           expect { subject }.to change{ procs('trg_mv_table_name_ins_func').length }.from(1).to(0)
         end
       end
-      
+
       describe "when table does not exist" do
-        before { ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.table_exists?(:table_name)}
-        
+        before { ActiveRecord::Base.connection.drop_table(:table_name) if  ActiveRecord::Base.connection.data_source_exists?(:table_name)}
+
         it "does not raise an error" do
           expect { subject }.not_to raise_error
         end
       end
 
       describe "when function exists but trigger does not" do
-        before do 
+        before do
           ActiveRecord::Base.connection.execute(
              "CREATE FUNCTION trg_mv_table_name_ins_func() RETURNS TRIGGER AS $trg_mv_table_name_ins_func$
                 BEGIN
                   IF NOT(1 = 1) THEN
                     RAISE EXCEPTION 'some error exception';
                   END IF;
-                
+
                   RETURN NEW;
                 END;
               $trg_mv_table_name_ins_func$ LANGUAGE plpgsql;"

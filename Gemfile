@@ -1,8 +1,8 @@
 source "http://rubygems.org"
 
-gem 'railties', '~> 4.1'
+gem 'railties', '~> 5.0'
 gem 'pg', '~> 0.17'
-gem "mv-core", '~> 2.2.4'
+gem "mv-core", '~> 3.0'
 
 group :development do
   gem "jeweler", '~> 2.0'

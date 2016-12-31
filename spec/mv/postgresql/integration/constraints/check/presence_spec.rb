@@ -10,9 +10,9 @@ describe "presence validation in check constraint begaviour" do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
 
-    db.drop_table(:table_name) if db.table_exists?(:table_name)
+    db.drop_table(:table_name) if db.data_source_exists?(:table_name)
 
-    Class.new(::ActiveRecord::Migration) do
+    Class.new(::ActiveRecord::Migration[5.0]) do
       def change
         create_table :table_name, id: false do |t|
           t.string :presence, validates: { presence: { allow_nil: true, as: :check } }
@@ -27,7 +27,7 @@ describe "presence validation in check constraint begaviour" do
 
   describe "with all nulls" do
     let(:opts) { {} }
-    
+
     it "doesn't raise an error" do
       expect{ subject }.not_to raise_error
     end
@@ -35,9 +35,9 @@ describe "presence validation in check constraint begaviour" do
 
   describe "with all valid values" do
     let(:opts) { {
-      presence: 'some value', 
+      presence: 'some value',
     } }
-    
+
     it "doesn't raise an error" do
       expect{ subject }.not_to raise_error
     end
@@ -45,11 +45,11 @@ describe "presence validation in check constraint begaviour" do
 
   describe "with invalid value" do
     let(:opts) { {
-      presence: ' ', 
+      presence: ' ',
     } }
-    
+
     it "raises an error with valid message" do
-      expect{ subject }.to raise_error
+      expect{ subject }.to raise_error(StandardError)
     end
   end
 end

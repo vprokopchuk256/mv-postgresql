@@ -10,9 +10,9 @@ describe "absence validation in trigger constraint begaviour" do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
 
-    db.drop_table(:table_name) if db.table_exists?(:table_name)
+    db.drop_table(:table_name) if db.data_source_exists?(:table_name)
 
-    Class.new(::ActiveRecord::Migration) do
+    Class.new(::ActiveRecord::Migration[5.0]) do
       def change
         create_table :table_name, id: false do |t|
           t.string :absence, validates: { absence: { allow_nil: true, as: :trigger, message: 'absence_error' } }
@@ -27,7 +27,7 @@ describe "absence validation in trigger constraint begaviour" do
 
   describe "with all nulls" do
     let(:opts) { {} }
-    
+
     it "doesn't raise an error" do
       expect{ subject }.not_to raise_error
     end
@@ -35,9 +35,9 @@ describe "absence validation in trigger constraint begaviour" do
 
   describe "with all valid values" do
     let(:opts) { {
-      absence: ' ', 
+      absence: ' ',
     } }
-    
+
     it "doesn't raise an error" do
       expect{ subject }.not_to raise_error
     end
@@ -45,9 +45,9 @@ describe "absence validation in trigger constraint begaviour" do
 
   describe "with valid value" do
     let(:opts) { {
-      absence: '1', 
+      absence: '1',
     } }
-    
+
     it "raises an error with valid message" do
       expect{ subject }.to raise_error.with_message(/absence_error/)
     end

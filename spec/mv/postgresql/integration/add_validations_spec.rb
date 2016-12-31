@@ -7,7 +7,7 @@ describe 'Add validation scenarios' do
     ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.send(:prepend, Mv::Postgresql::ActiveRecord::ConnectionAdapters::PostgresqlAdapterDecorator)
 
     Mv::Core::Migration::Base.with_suppressed_validations do
-      ActiveRecord::Base.connection.drop_table(:table_name) if ActiveRecord::Base.connection.table_exists?(:table_name)
+      ActiveRecord::Base.connection.drop_table(:table_name) if ActiveRecord::Base.connection.data_source_exists?(:table_name)
     end
   end
 
@@ -22,13 +22,13 @@ describe 'Add validation scenarios' do
       end
 
       let(:migration) do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_table :table_name, id: false do |t|
               t.string :column_name_1, validates: { length: { is: 5, as: :trigger, on: :create} }
             end
           end
-        end.new('TestMigration', '20141118164617') 
+        end.new('TestMigration', '20141118164617')
       end
 
       it "adds new validator" do
@@ -49,19 +49,19 @@ describe 'Add validation scenarios' do
       end
 
       let(:migration) do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_table :table_name, id: false do |t|
               t.change :column_name, :string, validates: { length: { is: 5, as: :trigger, on: :create} }
             end
           end
-        end.new('TestMigration', '20141118164617') 
+        end.new('TestMigration', '20141118164617')
       end
 
       it "adds new validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(1)
       end
-      
+
       it "creates new trigger constraint" do
         expect_any_instance_of(Mv::Postgresql::Constraint::Builder::Trigger).to receive(:create).once
         subject
@@ -78,18 +78,18 @@ describe 'Add validation scenarios' do
       end
 
       let(:migration) do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             add_column :table_name, :column_name_1, :string, validates: { length: { is: 5, as: :trigger, on: :create} }
           end
-        end.new('TestMigration', '20141118164617') 
+        end.new('TestMigration', '20141118164617')
       end
 
 
       it "adds new validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(1)
       end
-      
+
       it "creates new trigger constraint" do
         expect_any_instance_of(Mv::Postgresql::Constraint::Builder::Trigger).to receive(:create).once
         subject
@@ -104,17 +104,17 @@ describe 'Add validation scenarios' do
       end
 
       let(:migration) do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_column :table_name, :column_name, :string, validates: { length: { is: 5, as: :trigger, on: :create} }
           end
-        end.new('TestMigration', '20141118164617') 
+        end.new('TestMigration', '20141118164617')
       end
 
       it "adds new validator" do
         expect{ subject }.to change(Mv::Core::Db::MigrationValidator, :count).by(1)
       end
-      
+
       it "creates new trigger constraint" do
         expect_any_instance_of(Mv::Postgresql::Constraint::Builder::Trigger).to receive(:create).once
         subject
