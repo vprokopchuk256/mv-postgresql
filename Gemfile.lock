@@ -192,7 +192,7 @@ DEPENDENCIES
   guard-rspec (~> 4.5)
   jeweler (~> 2.0)
   mv-core (~> 3.0)
-  pg (~> 0.17)
+  pg (~> 0.18)
   pry-byebug
   railties (~> 5.0)
   rb-fsevent
@@ -202,4 +202,4 @@ DEPENDENCIES
   terminal-notifier-guard
 
 BUNDLED WITH
-   1.13.7
+   1.17.1

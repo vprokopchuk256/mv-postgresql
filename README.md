@@ -876,6 +876,10 @@ allow `NULL`:
 
 * Escape single quotes in the custom validation statement body
 
+**(2.2.8)** (4 Dec, 2018)
+
+* Bump required pg version
+
 ## Contributing
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet

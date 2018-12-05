@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem 'railties', '~> 5.0'
-gem 'pg', '~> 0.17'
+gem 'pg', '~> 0.18'
 gem "mv-core", '~> 3.0'
 
 group :development do
